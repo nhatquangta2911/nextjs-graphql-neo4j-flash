@@ -1,0 +1,33 @@
+{
+  "name": "nextjs-flash",
+  "version": "1.0.0",
+  "description": "Pet Project - Learning NextJS",
+  "main": "index.js",
+  "author": "Shawn",
+  "license": "MIT",
+  "dependencies": {
+    "@zeit/next-css": "^1.0.1",
+    "classnames": "^2.2.6",
+    "graphql": "^15.0.0",
+    "graphql-tag": "^2.10.3",
+    "next": "^9.3.6",
+    "next-compose-plugins": "^2.2.0",
+    "next-fonts": "^1.1.0",
+    "next-optimized-images": "^2.6.0",
+    "primeicons": "^2.0.0",
+    "primereact": "^4.2.0",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-transition-group": "^4.3.0"
+  },
+  "scripts": {
+    "dev": "next dev"
+  },
+  "devDependencies": {
+    "@types/graphql": "^14.5.0",
+    "@types/node": "^13.13.4",
+    "@types/react": "^16.9.34",
+    "@types/react-dom": "^16.9.7",
+    "typescript": "^3.8.3"
+  }
+}
