@@ -18,7 +18,8 @@
     "primereact": "^4.2.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-transition-group": "^4.3.0"
+    "react-transition-group": "^4.3.0",
+    "styled-components": "^5.1.0"
   },
   "scripts": {
     "dev": "next dev"

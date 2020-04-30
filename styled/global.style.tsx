@@ -1,0 +1,37 @@
+import styled, { createGlobalStyle } from 'styled-components';
+
+export const GlobalStyle = createGlobalStyle`
+    html {
+    box-sizing: border-box;
+  }
+  *, *:before, *:after {
+    box-sizing: inherit;
+    /* font-weight: 500; */
+  }
+  body{
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  h1,h2,h3,h4,h5,h6  {
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+  }
+
+  p,a,span,button,li,div  {
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+  }
+  ul{
+    margin: 0;
+    padding: 0;
+  }
+  li{
+    list-style: none;
+  }
+
+  a{
+    text-decoration: none;
+  }
+
+`;
