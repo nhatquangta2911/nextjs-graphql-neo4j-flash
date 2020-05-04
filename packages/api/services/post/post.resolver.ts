@@ -1,4 +1,4 @@
-import { Resolver, Query, Arg, Int } from "type-graphql";
+import { Resolver, Query, Arg, Int, Mutation } from "type-graphql";
 import loadPosts from "./post.sampleData";
 import Post from "./post.type";
 
@@ -20,5 +20,11 @@ export class PostResolver {
     @Arg("slug", (type) => String) slug: string
   ): Promise<Post[]> {
     return await this.items.filter((item) => item.slug === slug);
+  }
+
+  @Mutation(() => Post, { description: "Add new post" })
+  async addPost(@Arg("postInput") postInput: string): Promise<Post> {
+    console.log(postInput);
+    return await this.items[0];
   }
 }
