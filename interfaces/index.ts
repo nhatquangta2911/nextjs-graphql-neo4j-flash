@@ -1,10 +1,6 @@
 export interface Post {
   id: number;
-  title: string;
-  header: string;
-  tags: [Tag];
-  body: string;
-  coverImage: string;
+  slug: string;
 }
 
 export interface Tag {

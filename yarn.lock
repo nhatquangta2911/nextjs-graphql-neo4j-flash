@@ -1122,6 +1122,11 @@
     "@progress/kendo-react-common" "3.13.0"
     prop-types "^15.6.0"
 
+"@progress/kendo-theme-default@^4.17.0":
+  version "4.17.0"
+  resolved "https://registry.yarnpkg.com/@progress/kendo-theme-default/-/kendo-theme-default-4.17.0.tgz#77a9f2d254abbc4c2dc016961b3ab895467a9cb2"
+  integrity sha512-sAD4KdSIZAvrf0nXjph5A9IQa8c9vqSDxSqcJeCmHUVXP20A8DHA7gSF60W0BiGNp7PtR5kEH0up2yks/dJvPg==
+
 "@telerik/kendo-draggable@2.0.0":
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/@telerik/kendo-draggable/-/kendo-draggable-2.0.0.tgz#95ca6fdc56022d80ab5d0fec98463e2bdf4fc3ec"
