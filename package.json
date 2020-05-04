@@ -2,7 +2,9 @@
   "name": "root",
   "private": true,
   "scripts": {
-    "dev:web-next": "lerna run --parallel dev"
+    "dev:next-web": "yarn workspace next-web dev",
+    "dev:api": "yarn workspace api dev",
+    "dev": "lerna run --parallel dev"
   },
   "devDependencies": {
     "lerna": "^3.20.2"
