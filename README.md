@@ -12,11 +12,11 @@ yarn
 yarn run dev
 ```
 
-### Run both web and api
+### Run web
 ```console
 yarn run dev:next-web
 ```
-### Run both web and api
+### Run api
 ```console
 yarn run dev:api
 ```
