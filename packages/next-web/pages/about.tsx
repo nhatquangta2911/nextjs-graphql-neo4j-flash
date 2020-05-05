@@ -1,36 +1,31 @@
-import React from 'react';
-import Head from 'next/head';
-import { PageWrapper } from 'styled/pages.style';
-import { DropDownButton } from '@progress/kendo-react-buttons';
-import { withRouter } from 'next/router';
+import React from "react";
+import Head from "next/head";
+import { PageWrapper } from "styled/pages.style";
+import { DropDownButton } from "@progress/kendo-react-buttons";
+import { withRouter } from "next/router";
 
 //TODO: Static File Serving - in /public folder
 const menuItems = [
   {
-    actionName: 'Undo',
-    icon: 'undo',
-    route: 'posts/1',
+    actionName: "Post 1",
+    icon: "copy",
+    route: "/posts/you-dont-have-to-be-productive-all-the-time",
   },
   {
-    actionName: 'Redo',
-    icon: 'redo',
+    actionName: "Post 2",
+    icon: "copy",
     disabled: true,
-    route: '/posts/2',
+    route: "/posts/get-into-new-habits-quickly",
   },
   {
-    actionName: 'Cut',
-    icon: 'cut',
-    route: '/posts/3',
+    actionName: "Post 3",
+    icon: "copy",
+    route: "/posts/post-random-a",
   },
   {
-    actionName: 'Copy',
-    icon: 'copy',
-    route: '/posts/4',
-  },
-  {
-    actionName: 'Paste',
-    icon: 'paste',
-    route: '/posts/paste',
+    actionName: "Post 4",
+    icon: "copy",
+    route: "/posts/post-random-b",
   },
 ];
 
@@ -44,10 +39,10 @@ const AboutPage = ({ router }) => {
         <p>i'm Shawn</p>
         <DropDownButton
           items={menuItems}
-          textField='actionName'
-          text='User Settings'
+          textField="actionName"
+          text="User Settings"
           onItemClick={(item) => {
-            router.push('/posts/[id]', menuItems[item.itemIndex].route);
+            router.push("/posts/[slug]", menuItems[item.itemIndex].route);
           }}
         />
       </PageWrapper>
