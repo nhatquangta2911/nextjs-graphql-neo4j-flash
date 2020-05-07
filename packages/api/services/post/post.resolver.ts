@@ -24,7 +24,6 @@ export class PostResolver {
 
   @Mutation(() => Post, { description: "Add new post" })
   async addPost(@Arg("postInput") postInput: string): Promise<Post> {
-    console.log(postInput);
     return await this.items[0];
   }
 }
