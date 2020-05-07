@@ -7,6 +7,8 @@ import express, {
 } from "express";
 import { ApolloServer } from "apollo-server-express";
 import { buildSchema } from "type-graphql";
+//TODO: !!!
+import neo4j from "neo4j-driver";
 
 const app: express.Application = express();
 const path = "/graphql";
