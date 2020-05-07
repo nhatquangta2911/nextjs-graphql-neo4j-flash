@@ -12,7 +12,18 @@ export interface IPageOwnProps {}
 export interface IPageOwnState {}
 
 class TrackingPage extends React.Component<IPageOwnProps, IPageOwnState> {
+  state = {
+    textValue: "type something...",
+  };
+
+  handleChangeText: React.ChangeEventHandler<HTMLInputElement> = (event) => {
+    this.setState({
+      textValue: event.target.value,
+    });
+  };
+
   render() {
+    const { textValue } = this.state;
     return (
       <PageWrapper>
         <HeaderSection>
@@ -21,7 +32,8 @@ class TrackingPage extends React.Component<IPageOwnProps, IPageOwnState> {
         </HeaderSection>
         <ContentSection>
           <LeftContentSection>
-            <p>multiple tab views here...</p>
+            <p>{textValue}</p>
+            <input onChange={this.handleChangeText} />
           </LeftContentSection>
           <RightContentSection>
             <p>your goals</p>
