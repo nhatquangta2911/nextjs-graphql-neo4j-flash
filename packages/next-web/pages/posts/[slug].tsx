@@ -18,7 +18,7 @@ import { withApollo } from "../../helper/apollo";
 import { useQuery } from "@apollo/react-hooks";
 import { GET_POSTS } from "graphql/query/post.query";
 
-const PostDetailPage = ({ post }) => {
+const PostDetailPage = () => {
   const router = useRouter();
   const { slug } = router.query;
   const { data, error, loading, fetchMore } = useQuery(GET_POSTS, {

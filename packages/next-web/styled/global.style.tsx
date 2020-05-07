@@ -1,4 +1,17 @@
-import styled, { createGlobalStyle } from 'styled-components';
+import styled, { createGlobalStyle } from "styled-components";
+
+export const Row = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-self: stretch;
+  align-items: center;
+`;
+
+export const Column = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-self: stretch;
+`;
 
 export const GlobalStyle = createGlobalStyle`
     html {
