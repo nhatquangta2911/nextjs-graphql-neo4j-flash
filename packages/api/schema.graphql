@@ -1,0 +1,18 @@
+type Task {
+  title: String!
+}
+
+type TaskList {
+  weekNo: String!
+  total: Int
+  complete: Int
+  tasks: [Task] @relation(name: "CONTAINS", direction: "OUT")
+}
+
+type User {
+  name: String!
+  email: String!
+  github: String
+  password: String!
+  taskList: [TaskList] @relation(name: "HAS", direction: "OUT")
+}
