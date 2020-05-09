@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   PageWrapper,
   HeaderSection,
@@ -6,24 +6,28 @@ import {
   FooterSection,
   LeftContentSection,
   RightContentSection,
-} from "styled/pages.style";
+  UpperLeftContentSection,
+  LowerLeftContentSection,
+} from 'styled/pages.style';
+import { TabView, TabPanel } from 'primereact/tabview';
+import { ScrollPanel } from 'primereact/scrollpanel';
+import GithubCalendar from 'react-github-calendar';
+import ReactTooltip from 'react-tooltip';
 
 export interface IPageOwnProps {}
+//TODO: Add interfaces
 export interface IPageOwnState {}
 
 class TrackingPage extends React.Component<IPageOwnProps, IPageOwnState> {
   state = {
-    textValue: "type something...",
-  };
-
-  handleChangeText: React.ChangeEventHandler<HTMLInputElement> = (event) => {
-    this.setState({
-      textValue: event.target.value,
-    });
+    user: {
+      name: 'Shawn',
+      github: 'nhatquangta2911',
+    },
   };
 
   render() {
-    const { textValue } = this.state;
+    const { user } = this.state;
     return (
       <PageWrapper>
         <HeaderSection>
@@ -32,12 +36,61 @@ class TrackingPage extends React.Component<IPageOwnProps, IPageOwnState> {
         </HeaderSection>
         <ContentSection>
           <LeftContentSection>
-            <p>{textValue}</p>
-            <input onChange={this.handleChangeText} />
+            <UpperLeftContentSection>
+              <TabView renderActiveOnly={true}>
+                <TabPanel
+                  header='Github Contributions'
+                  leftIcon='pi pi-chart-bar'
+                >
+                  <ScrollPanel style={{ width: '100%', height: '30vh' }}>
+                    <GithubCalendar
+                      username={user.github}
+                      color='hsl(203, 82%, 33%)'
+                      fontSize={12}
+                    >
+                      <ReactTooltip delayShow={50} html />
+                    </GithubCalendar>
+                  </ScrollPanel>
+                </TabPanel>
+                <TabPanel header='Calendar' leftIcon='pi pi-calendar'>
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Magnam iure labore quasi maxime enim fugiat eligendi quidem
+                  illo laborum. Sed quibusdam ullam ex. Aspernatur nulla autem
+                  maiores, impedit pariatur labore!
+                </TabPanel>
+                <TabPanel header='Weekly Tasks' leftIcon='pi pi-list'>
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Magnam iure labore quasi maxime enim fugiat eligendi quidem
+                  illo laborum. Sed quibusdam ullam ex. Aspernatur nulla autem
+                  maiores, impedit pariatur labore!
+                </TabPanel>
+              </TabView>
+            </UpperLeftContentSection>
+            <LowerLeftContentSection>
+              <TabView renderActiveOnly={true}>
+                <TabPanel header='Book Tracking' leftIcon='pi pi-tags'>
+                  <ScrollPanel style={{ width: '100%', height: '30vh' }}>
+                    <GithubCalendar
+                      username={user.github}
+                      years={[2020, 2019]}
+                      fullYear={false}
+                      color='hsl(203, 82%, 33%)'
+                      fontSize={12}
+                    >
+                      <ReactTooltip delayShow={50} html />
+                    </GithubCalendar>
+                  </ScrollPanel>
+                </TabPanel>
+                <TabPanel header='Financial Management' leftIcon='pi pi-tags'>
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Magnam iure labore quasi maxime enim fugiat eligendi quidem
+                  illo laborum. Sed quibusdam ullam ex. Aspernatur nulla autem
+                  maiores, impedit pariatur labore!
+                </TabPanel>
+              </TabView>
+            </LowerLeftContentSection>
           </LeftContentSection>
-          <RightContentSection>
-            <p>your goals</p>
-          </RightContentSection>
+          <RightContentSection></RightContentSection>
         </ContentSection>
         <FooterSection>
           <p>good job! keep going!</p>

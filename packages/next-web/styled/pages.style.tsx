@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import { Row, Column } from "./global.style";
+import styled from 'styled-components';
+import { Row, Column } from './global.style';
 
 export const PageWrapper = styled.div`
   width: 100%;
@@ -45,11 +45,35 @@ export const LeftContentSection = styled(Column)`
   width: 70vw;
   height: 100%;
   justify-content: space-between;
+  background-color: #f4f4f4;
+  border-radius: 7px;
+  margin-right: 1vw;
 `;
 
 export const RightContentSection = styled(Column)`
-  width: 30%;
+  width: 29vw;
   height: 100%;
+  background-color: #f4f4f4;
+  border-radius: 7px;
   justify-content: space-between;
   padding: 0 2px;
+`;
+
+export const UpperLeftContentSection = styled(Row)`
+  width: 100%;
+  height: 50%;
+  padding: 0 2px;
+  align-items: stretch;
+  justify-content: stretch;
+  min-height: 50%;
+  width: 100%;
+`;
+export const LowerLeftContentSection = styled(Row)`
+  width: 100%;
+  height: 50%;
+  padding: 0 2px;
+  align-items: stretch;
+  justify-content: stretch;
+  min-height: 50%;
+  width: 100%;
 `;
