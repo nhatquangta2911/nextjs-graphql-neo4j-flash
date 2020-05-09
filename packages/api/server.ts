@@ -1,45 +1,44 @@
-import "reflect-metadata";
+import 'reflect-metadata';
 import express, {
   Request,
   Response,
-  NextFunction,
   RequestHandler,
-} from "express";
-import { ApolloServer } from "apollo-server-express";
-import { buildSchema } from "type-graphql";
-//TODO: !!!
-import neo4j from "neo4j-driver";
-
-const app: express.Application = express();
-const path = "/graphql";
-const PORT = process.env.PORT || 4000;
+  NextFunction,
+} from 'express';
+import { ApolloServer } from 'apollo-server';
+import neo4j from 'neo4j-driver';
+import dotenv from 'dotenv';
+import { schema, typeDefs } from './graphql-schema';
+import { driver } from 'neo4j-driver';
+dotenv.config();
 
 const loggingMiddleware: RequestHandler = (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
-  console.log("IP:", req.headers.host);
+  console.log('IP:', req.headers.host);
   next();
 };
 
 const main = async () => {
-  const schema = await buildSchema({
-    resolvers: [__dirname + "/**/*.resolver.ts"],
-  });
+  const driver = neo4j.driver(
+    process.env.NEO4J_URL || 'bolt://localhost:7687',
+    neo4j.auth.basic(
+      process.env.NEO4J_USERNAME || 'neo4j',
+      process.env.NEO4J_PASSWORD || 'neo4j'
+    )
+  );
   const apolloServer = new ApolloServer({
     schema,
     introspection: true,
     playground: true,
     tracing: true,
-    context: ({ req }) => {
-      console.log(req.connection.remoteAddress?.split("f:")[1]);
-    },
+    context: { driver },
   });
-  apolloServer.applyMiddleware({ app, path });
 
-  app.listen(PORT, () => {
-    console.log(`☑️ ☑️ ☑️  started http://localhost:${PORT}${path}`);
+  apolloServer.listen().then(({ url }) => {
+    console.log(`☑️ ☑️ ☑️  GraphQL API ready at ${url}`);
   });
 };
 
