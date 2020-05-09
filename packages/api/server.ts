@@ -9,7 +9,6 @@ import { ApolloServer } from 'apollo-server';
 import neo4j from 'neo4j-driver';
 import dotenv from 'dotenv';
 import { schema, typeDefs } from './graphql-schema';
-import { driver } from 'neo4j-driver';
 dotenv.config();
 
 const loggingMiddleware: RequestHandler = (
