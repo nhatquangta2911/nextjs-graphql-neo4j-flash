@@ -5,7 +5,7 @@ type Task {
 type TaskList {
   weekNo: String!
   total: Int
-  complete: Int
+  completed: Int
   tasks: [Task] @relation(name: "CONTAINS", direction: "OUT")
 }
 

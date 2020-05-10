@@ -11,17 +11,26 @@ import {
 } from 'styled/pages.style';
 import { TabView, TabPanel } from 'primereact/tabview';
 import { ScrollPanel } from 'primereact/scrollpanel';
-import { Tracking, TaskList } from '../containers';
+import {
+  Tracking as TrackingContainer,
+  TaskList as TaskListContainer,
+} from '../containers';
+import { User, TaskList } from '../types';
 
 export interface IPageOwnProps {}
 //TODO: Add interfacess
-export interface IPageOwnState {}
+export interface IPageOwnState {
+  user: User;
+}
 
 class TrackingPage extends React.Component<IPageOwnProps, IPageOwnState> {
-  state = {
+  state: IPageOwnState = {
     user: {
+      _id: '1',
       name: 'Shawn',
       github: 'nhatquangta2911',
+      email: 'shawn@enclave.vn',
+      taskList: {} as TaskList,
     },
   };
 
@@ -33,10 +42,10 @@ class TrackingPage extends React.Component<IPageOwnProps, IPageOwnState> {
         <ContentSection>
           <LeftContentSection>
             <UpperLeftContentSection>
-              <Tracking github={user?.github} />
+              <TrackingContainer github={user?.github} />
             </UpperLeftContentSection>
             <LowerLeftContentSection>
-              <TaskList />
+              <TaskListContainer />
             </LowerLeftContentSection>
           </LeftContentSection>
           <RightContentSection></RightContentSection>
