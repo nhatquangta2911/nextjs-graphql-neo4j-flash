@@ -11,11 +11,10 @@ import {
 } from 'styled/pages.style';
 import { TabView, TabPanel } from 'primereact/tabview';
 import { ScrollPanel } from 'primereact/scrollpanel';
-import GithubCalendar from 'react-github-calendar';
-import ReactTooltip from 'react-tooltip';
+import { Tracking, TaskList } from '../containers';
 
 export interface IPageOwnProps {}
-//TODO: Add interfaces
+//TODO: Add interfacess
 export interface IPageOwnState {}
 
 class TrackingPage extends React.Component<IPageOwnProps, IPageOwnState> {
@@ -30,71 +29,19 @@ class TrackingPage extends React.Component<IPageOwnProps, IPageOwnState> {
     const { user } = this.state;
     return (
       <PageWrapper>
-        <HeaderSection>
-          <p>hi, shawn!</p>
-          <p>today: 98% done</p>
-        </HeaderSection>
+        <HeaderSection></HeaderSection>
         <ContentSection>
           <LeftContentSection>
             <UpperLeftContentSection>
-              <TabView renderActiveOnly={true}>
-                <TabPanel
-                  header='Github Contributions'
-                  leftIcon='pi pi-chart-bar'
-                >
-                  <ScrollPanel style={{ width: '100%', height: '30vh' }}>
-                    <GithubCalendar
-                      username={user.github}
-                      color='hsl(203, 82%, 33%)'
-                      fontSize={12}
-                    >
-                      <ReactTooltip delayShow={50} html />
-                    </GithubCalendar>
-                  </ScrollPanel>
-                </TabPanel>
-                <TabPanel header='Calendar' leftIcon='pi pi-calendar'>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Magnam iure labore quasi maxime enim fugiat eligendi quidem
-                  illo laborum. Sed quibusdam ullam ex. Aspernatur nulla autem
-                  maiores, impedit pariatur labore!
-                </TabPanel>
-                <TabPanel header='Weekly Tasks' leftIcon='pi pi-list'>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Magnam iure labore quasi maxime enim fugiat eligendi quidem
-                  illo laborum. Sed quibusdam ullam ex. Aspernatur nulla autem
-                  maiores, impedit pariatur labore!
-                </TabPanel>
-              </TabView>
+              <Tracking github={user?.github} />
             </UpperLeftContentSection>
             <LowerLeftContentSection>
-              <TabView renderActiveOnly={true}>
-                <TabPanel header='Book Tracking' leftIcon='pi pi-tags'>
-                  <ScrollPanel style={{ width: '100%', height: '30vh' }}>
-                    <GithubCalendar
-                      username={user.github}
-                      years={[2020, 2019]}
-                      fullYear={false}
-                      color='hsl(203, 82%, 33%)'
-                      fontSize={12}
-                    >
-                      <ReactTooltip delayShow={50} html />
-                    </GithubCalendar>
-                  </ScrollPanel>
-                </TabPanel>
-                <TabPanel header='Financial Management' leftIcon='pi pi-tags'>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Magnam iure labore quasi maxime enim fugiat eligendi quidem
-                  illo laborum. Sed quibusdam ullam ex. Aspernatur nulla autem
-                  maiores, impedit pariatur labore!
-                </TabPanel>
-              </TabView>
+              <TaskList />
             </LowerLeftContentSection>
           </LeftContentSection>
           <RightContentSection></RightContentSection>
         </ContentSection>
-        <FooterSection>
-          <p>good job! keep going!</p>
-        </FooterSection>
+        <FooterSection></FooterSection>
       </PageWrapper>
     );
   }

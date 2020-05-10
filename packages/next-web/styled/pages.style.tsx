@@ -7,7 +7,7 @@ export const PageWrapper = styled.div`
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background-color: #f7f7f7;
+  background-color: #f9f9f9;
   position: relative;
   padding: 0 45px;
   justify-content: space-between;
@@ -24,13 +24,17 @@ export const PageWrapper = styled.div`
 export const HeaderSection = styled(Row)`
   width: 100%;
   height: 8vh;
+  background-color: #f4f4f4;
+  border-radius: 7px;
   padding: 2px 0;
   justify-content: space-between;
 `;
 
 export const FooterSection = styled(Row)`
   width: 100%;
+  background-color: #f4f4f4;
   height: 8vh;
+  border-radius: 7px;
   justify-content: space-between;
 `;
 
@@ -66,6 +70,7 @@ export const UpperLeftContentSection = styled(Row)`
   align-items: stretch;
   justify-content: stretch;
   min-height: 50%;
+  border-radius: 7px;
   width: 100%;
 `;
 export const LowerLeftContentSection = styled(Row)`
@@ -75,5 +80,6 @@ export const LowerLeftContentSection = styled(Row)`
   align-items: stretch;
   justify-content: stretch;
   min-height: 50%;
+  border-radius: 7px;
   width: 100%;
 `;
