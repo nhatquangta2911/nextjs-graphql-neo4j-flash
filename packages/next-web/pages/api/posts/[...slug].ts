@@ -1,10 +1,10 @@
-import { NextApiRequest, NextApiResponse } from "next";
-import { Post } from "../../../interfaces";
+import { NextApiRequest, NextApiResponse } from 'next';
+import { Post } from '../../../types';
 
 export const config = {
   api: {
     bodyParser: {
-      sizeLimit: "0.1kb",
+      sizeLimit: '0.1kb',
     },
   },
 };
