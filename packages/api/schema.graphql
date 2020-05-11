@@ -1,5 +1,7 @@
 type Task {
   title: String!
+  status: String!
+  primary: Boolean!
 }
 
 type TaskList {
@@ -15,4 +17,11 @@ type User {
   github: String
   password: String!
   taskList: [TaskList] @relation(name: "HAS", direction: "OUT")
+}
+
+type Contains @relation(name: "CONTAINS") {
+  from: TaskList
+  to: Task
+  status: String
+  primary: Boolean
 }

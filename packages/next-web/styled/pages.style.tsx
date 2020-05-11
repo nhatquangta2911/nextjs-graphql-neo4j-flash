@@ -40,7 +40,7 @@ export const FooterSection = styled(Row)`
 
 export const ContentSection = styled(Row)`
   width: 100%;
-  height: 84vh;
+  height: 80vh;
   justify-content: space-between;
   padding: 5px 0;
 `;

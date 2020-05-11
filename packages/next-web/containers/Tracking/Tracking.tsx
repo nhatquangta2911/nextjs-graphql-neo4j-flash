@@ -13,7 +13,7 @@ const Tracking: React.FC<Props> = (props) => {
   return (
     <TabView renderActiveOnly={true}>
       <TabPanel header="Github Contributions" leftIcon="pi pi-chart-bar">
-        <ScrollPanel style={{ width: "65vw", height: "30vh" }}>
+        <ScrollPanel style={{ width: "58vw", height: "30vh" }}>
           <GithubCalendar
             username={github}
             color="hsl(203, 82%, 33%)"

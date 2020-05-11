@@ -32,7 +32,7 @@ const TaskList: React.FC<Props> = (props) => {
   return (
     <TabView renderActiveOnly={true}>
       <TabPanel header="Task List" leftIcon="pi pi-tags">
-        <ScrollPanel style={{ width: "65vw", height: "30vh" }}>
+        <ScrollPanel style={{ width: "100%", height: "70vh" }}>
           <p>Week: {weeklyTaskList?.weekNo}</p>
           <p>Total: {weeklyTaskList?.total}</p>
           <p>Completed: {weeklyTaskList?.completed}</p>
