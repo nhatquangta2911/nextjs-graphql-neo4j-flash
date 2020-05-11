@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import { Row, Column } from './global.style';
+import styled from "styled-components";
+import { Row, Column } from "./global.style";
 
 export const PageWrapper = styled.div`
   width: 100%;
@@ -9,7 +9,7 @@ export const PageWrapper = styled.div`
   flex-direction: column;
   background-color: #f9f9f9;
   position: relative;
-  padding: 0 45px;
+  padding: 0 2vw;
   justify-content: space-between;
 
   @media (max-width: 768px) {
@@ -46,7 +46,7 @@ export const ContentSection = styled(Row)`
 `;
 
 export const LeftContentSection = styled(Column)`
-  width: 70vw;
+  width: 68vw;
   height: 100%;
   justify-content: space-between;
   background-color: #f4f4f4;
@@ -55,7 +55,7 @@ export const LeftContentSection = styled(Column)`
 `;
 
 export const RightContentSection = styled(Column)`
-  width: 29vw;
+  width: 28vw;
   height: 100%;
   background-color: #f4f4f4;
   border-radius: 7px;
