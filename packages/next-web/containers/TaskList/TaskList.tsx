@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useMutation } from "@apollo/react-hooks";
+import { useMutation, useQuery } from "@apollo/react-hooks";
 import { TabView, TabPanel } from "primereact/tabview";
 import { ScrollPanel } from "primereact/scrollpanel";
 import { ListBox } from "primereact/listbox";
@@ -9,19 +9,27 @@ import {
   GET_TASKS_BY_WEEKNO,
 } from "../../graphql/query/task.query";
 import { Task, TaskList as TaskListType } from "../../types";
-import { ADD_TASK } from "graphql/mutation/task.mutation";
+import {
+  ADD_TASK,
+  ADD_TASK_INTO_WEEKLY_TASKLIST,
+} from "graphql/mutation/task.mutation";
 
 type Props = {
-  taskList: TaskListType;
+  weekNo: string;
 };
 
-const TaskList: React.FC<Props> = ({ taskList }) => {
+const TaskList: React.FC<Props> = ({ weekNo }) => {
   const [selectedTasks, setSelectedTasks] = useState([]);
   const [newTask, setNewTask] = useState("");
-  const [addTask, { loading, error }] = useMutation(ADD_TASK);
-
-  const tasks = taskList?.tasks;
-  const taskUIList = tasks?.map((task: Task) => ({
+  const [addTask] = useMutation(ADD_TASK);
+  const [addTaskIntoWeeklyTaskList] = useMutation(
+    ADD_TASK_INTO_WEEKLY_TASKLIST
+  );
+  const { loading, error, data, refetch } = useQuery(GET_TASKS_BY_WEEKNO, {
+    variables: { weekNo },
+  });
+  const taskList = data?.TaskList[0];
+  const taskUIList = taskList?.tasks.map((task: Task) => ({
     label: task?.title,
     value: task?._id,
   }));
@@ -38,6 +46,10 @@ const TaskList: React.FC<Props> = ({ taskList }) => {
     if (event.key == "Enter") {
       try {
         await addTask({ variables: { title: newTask } });
+        await addTaskIntoWeeklyTaskList({
+          variables: { from: { weekNo }, to: { title: newTask } },
+        });
+        await refetch();
         setNewTask("");
       } catch (error) {
         console.log(error);

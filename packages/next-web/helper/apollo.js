@@ -90,7 +90,6 @@ export function initApolloClient(initialState) {
 }
 
 function createApolloClient(initialState = {}) {
-  console.log(process.env.API_URL);
   return new ApolloClient({
     ssrMode: typeof window === "undefined",
     link: new HttpLink({

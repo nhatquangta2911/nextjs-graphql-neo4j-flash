@@ -36,6 +36,7 @@ const TrackingPage: React.FC = (props: IPageOwnProps) => {
     variables: { name: "Shawn" },
   });
   const user = data?.User[0];
+  const weekNo = user?.taskList[0]?.weekNo;
   return (
     <>
       <Head>
@@ -49,14 +50,14 @@ const TrackingPage: React.FC = (props: IPageOwnProps) => {
         <ContentSection>
           <LeftContentSection>
             <UpperLeftContentSection>
-              <TrackingContainer github={user?.github.split(".com/")[1]} />
+              <TrackingContainer github={user?.github} />
             </UpperLeftContentSection>
             <LowerLeftContentSection>
-              <TrackingContainer github={user?.github.split(".com/")[1]} />
+              <TrackingContainer github={user?.github} />
             </LowerLeftContentSection>
           </LeftContentSection>
           <RightContentSection>
-            <TaskListContainer taskList={user?.taskList[0]} />
+            <TaskListContainer weekNo={weekNo} />
           </RightContentSection>
         </ContentSection>
         <FooterSection>

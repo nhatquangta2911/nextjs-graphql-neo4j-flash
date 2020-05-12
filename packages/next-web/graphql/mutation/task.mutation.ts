@@ -10,3 +10,16 @@ export const ADD_TASK = gql`
     }
   }
 `;
+
+export const ADD_TASK_INTO_WEEKLY_TASKLIST = gql`
+  mutation addTaskIntoWeeklyTaskList($from: _TaskListInput!, $to: _TaskInput!) {
+    AddTaskListTasks(from: $from, to: $to) {
+      from {
+        weekNo
+      }
+      to {
+        title
+      }
+    }
+  }
+`;
