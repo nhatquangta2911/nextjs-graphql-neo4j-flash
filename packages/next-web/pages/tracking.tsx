@@ -19,6 +19,7 @@ import {
 } from "../containers";
 import { User, TaskList } from "../types";
 import { GET_USER_INFO } from "graphql/query/task.query";
+import { getWeekNo } from "helper/dateTime";
 
 export interface IPageOwnProps {}
 export interface IPageOwnState {
@@ -36,7 +37,7 @@ const TrackingPage: React.FC = (props: IPageOwnProps) => {
     variables: { name: "Shawn" },
   });
   const user = data?.User[0];
-  const weekNo = user?.taskList[0]?.weekNo;
+  const weekNo = getWeekNo() || user?.taskList[0]?.weekNo;
   return (
     <>
       <Head>

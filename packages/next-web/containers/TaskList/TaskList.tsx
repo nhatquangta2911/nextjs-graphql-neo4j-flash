@@ -4,15 +4,14 @@ import { TabView, TabPanel } from "primereact/tabview";
 import { ScrollPanel } from "primereact/scrollpanel";
 import { ListBox } from "primereact/listbox";
 import { InputText } from "primereact/inputtext";
-import {
-  GET_ALL_TASKS,
-  GET_TASKS_BY_WEEKNO,
-} from "../../graphql/query/task.query";
+import { GET_TASKS_BY_WEEKNO } from "../../graphql/query/task.query";
 import { Task, TaskList as TaskListType } from "../../types";
 import {
   ADD_TASK,
   ADD_TASK_INTO_WEEKLY_TASKLIST,
+  UPDATE_TASKLIST,
 } from "graphql/mutation/task.mutation";
+import { getWeekDescription } from "helper/dateTime";
 
 type Props = {
   weekNo: string;
@@ -22,6 +21,7 @@ const TaskList: React.FC<Props> = ({ weekNo }) => {
   const [selectedTasks, setSelectedTasks] = useState([]);
   const [newTask, setNewTask] = useState("");
   const [addTask] = useMutation(ADD_TASK);
+  const [updateTaskList] = useMutation(UPDATE_TASKLIST);
   const [addTaskIntoWeeklyTaskList] = useMutation(
     ADD_TASK_INTO_WEEKLY_TASKLIST
   );
@@ -45,7 +45,15 @@ const TaskList: React.FC<Props> = ({ weekNo }) => {
   ) => {
     if (event.key == "Enter") {
       try {
-        await addTask({ variables: { title: newTask } });
+        await addTask({
+          variables: {
+            title: newTask,
+            primary: false,
+          },
+        });
+        await updateTaskList({
+          variables: { total: taskList?.total + 1, weekNo },
+        });
         await addTaskIntoWeeklyTaskList({
           variables: { from: { weekNo }, to: { title: newTask } },
         });
@@ -57,16 +65,19 @@ const TaskList: React.FC<Props> = ({ weekNo }) => {
     }
   };
 
-  if (loading) return <p>adding...</p>;
+  if (loading) return <p>loading...</p>;
   if (error) return <p>{error.message}</p>;
 
   return (
     <TabView renderActiveOnly={true}>
       <TabPanel header="Task List" leftIcon="pi pi-tags">
         <ScrollPanel style={{ width: "100%", height: "70vh" }}>
-          <p>Week: {taskList?.weekNo}</p>
+          <h3>{getWeekDescription(taskList?.weekNo)}</h3>
           <p>Total: {taskList?.total}</p>
-          <p>Completed: {taskList?.completed}</p>
+          <p>
+            Completed: {taskList?.completed} (
+            {Math.round(taskList?.completed / taskList?.total) * 100}%)
+          </p>
           <InputText
             id="in"
             style={{ width: "100%", margin: "10px 0" }}

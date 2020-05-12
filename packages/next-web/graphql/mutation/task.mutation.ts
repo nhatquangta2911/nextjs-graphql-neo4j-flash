@@ -1,8 +1,8 @@
 import gql from "graphql-tag";
 
 export const ADD_TASK = gql`
-  mutation addTask($title: String!) {
-    CreateTask(title: $title, status: "Doing", primary: false) {
+  mutation addTask($title: String!, $primary: Boolean!) {
+    CreateTask(title: $title, status: "Doing", primary: $primary) {
       _id
       title
       status
@@ -18,6 +18,19 @@ export const ADD_TASK_INTO_WEEKLY_TASKLIST = gql`
         weekNo
       }
       to {
+        title
+      }
+    }
+  }
+`;
+
+export const UPDATE_TASKLIST = gql`
+  mutation updateTaskList($total: Int!, $weekNo: String!) {
+    UpdateTaskList(total: $total, weekNo: $weekNo) {
+      weekNo
+      total
+      completed
+      tasks {
         title
       }
     }

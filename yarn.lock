@@ -4270,6 +4270,11 @@ csstype@^2.2.0, csstype@^2.6.7:
   resolved "https://registry.yarnpkg.com/csstype/-/csstype-2.6.10.tgz#e63af50e66d7c266edb6b32909cfd0aabe03928b"
   integrity sha512-D34BqZU4cIlMCY93rZHbrq9pjTAQJ3U8S8rfBqjwHxkGPThWFjzZDQpgMJY0QViLxth6ZKYiwFBo14RdN44U/w==
 
+current-week@^1.0.11:
+  version "1.0.11"
+  resolved "https://registry.yarnpkg.com/current-week/-/current-week-1.0.11.tgz#90394696338fc9b16ca773620dbe8d5b2da8a12e"
+  integrity sha512-+Arb1n7QddT+VCy1HMjyE/54f0JAm/zvzlO0dH7+7oP7OsgreNSPKCk/z6O6ZG9z4Rt+Yf3XD24jBpdngckxZw==
+
 currently-unhandled@^0.4.1:
   version "0.4.1"
   resolved "https://registry.yarnpkg.com/currently-unhandled/-/currently-unhandled-0.4.1.tgz#988df33feab191ef799a61369dd76c17adf957ea"
