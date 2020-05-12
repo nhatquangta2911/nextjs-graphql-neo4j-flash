@@ -1,25 +1,30 @@
-import React from 'react';
-import Head from 'next/head';
-import Link from 'next/link';
-import { useRouter } from 'next/dist/client/router';
-import { PageWrapper } from 'styled/pages.style';
+import React, { useState } from "react";
+import Head from "next/head";
+import Link from "next/link";
+import { useRouter } from "next/dist/client/router";
+import { PageWrapper, HomeRouteSection } from "styled/pages.style";
 
 // the redirect will only happen on the client-side. This is by design,
 const Index: React.FC = () => {
-  const router = useRouter();
+  const [username, setUsername] = useState("");
   React.useEffect(() => {
-    router.replace('/tracking');
+    setUsername(localStorage.getItem("username"));
   });
   return (
     <>
       <Head>
-        <title>welcome!</title>
+        <title>welcome {username}!</title>
       </Head>
       <PageWrapper>
-        <p>welcome, buddy!</p>
-        <Link href='/about'>
-          <a>about me</a>
-        </Link>
+        <HomeRouteSection>
+          <p>welcome {username}!</p>
+          <Link href="/tracking">
+            <a>tracking</a>
+          </Link>
+          <Link href="/about">
+            <a>about me</a>
+          </Link>
+        </HomeRouteSection>
       </PageWrapper>
     </>
   );

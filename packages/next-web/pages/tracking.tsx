@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Head from "next/head";
 import { withApollo } from "../helper/apollo";
 import { useQuery } from "@apollo/react-hooks";
@@ -26,13 +26,16 @@ export interface IPageOwnState {
 }
 
 const TrackingPage: React.FC = (props: IPageOwnProps) => {
+  const [username, setUsername] = useState("");
   const today = moment();
   const currentDateTime = today.format("MMMM Do YYYY, h:mm:ss a");
-  const [user, setUser] = useState({} as User);
+  useEffect(() => {
+    setUsername(localStorage.getItem("username"));
+  });
   const { data, error } = useQuery(GET_USER_INFO, {
     variables: { name: "Shawn" },
   });
-  setUser(data?.User[0]);
+  const user = data?.User[0];
   return (
     <>
       <Head>
@@ -40,20 +43,20 @@ const TrackingPage: React.FC = (props: IPageOwnProps) => {
       </Head>
       <PageWrapper>
         <HeaderSection>
-          <p>hi Shawn!</p>
+          <p>hi {user?.name}</p>
           <p>log out</p>
         </HeaderSection>
         <ContentSection>
           <LeftContentSection>
             <UpperLeftContentSection>
-              <TrackingContainer github={user?.github} />
+              <TrackingContainer github={user?.github.split(".com/")[1]} />
             </UpperLeftContentSection>
             <LowerLeftContentSection>
-              <TrackingContainer github={user?.github} />
+              <TrackingContainer github={user?.github.split(".com/")[1]} />
             </LowerLeftContentSection>
           </LeftContentSection>
           <RightContentSection>
-            <TaskListContainer />
+            <TaskListContainer taskList={user?.taskList[0]} />
           </RightContentSection>
         </ContentSection>
         <FooterSection>

@@ -83,3 +83,9 @@ export const LowerLeftContentSection = styled(Row)`
   border-radius: 7px;
   width: 100%;
 `;
+
+export const HomeRouteSection = styled(Column)`
+  width: 100%;
+  height: auto;
+  padding: 1vh 0;
+`;
