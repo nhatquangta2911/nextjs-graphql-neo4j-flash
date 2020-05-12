@@ -17,6 +17,8 @@ export interface TaskList {
 export interface Task {
   _id: string;
   title: string;
+  status: string;
+  primary: Boolean;
 }
 
 export interface Post {
