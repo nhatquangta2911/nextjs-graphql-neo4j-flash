@@ -1,47 +1,49 @@
-import React, { useEffect, useState } from 'react';
-import { useMutation, useQuery } from '@apollo/react-hooks';
-import { TabView, TabPanel } from 'primereact/tabview';
-import { ScrollPanel } from 'primereact/scrollpanel';
-import { ListBox } from 'primereact/listbox';
-import { InputText } from 'primereact/inputtext';
-import { Container, Draggable } from 'react-smooth-dnd';
-import { GET_TASKS_BY_WEEKNO } from '../../graphql/query/task.query';
-import { Task, TaskList as TaskListType } from '../../types';
+import React, { useEffect, useState } from "react";
+import { connect } from "react-redux";
+import { useMutation, useQuery } from "@apollo/react-hooks";
+import { TabView, TabPanel } from "primereact/tabview";
+import { ScrollPanel } from "primereact/scrollpanel";
+import { ListBox } from "primereact/listbox";
+import { InputText } from "primereact/inputtext";
+import { Container, Draggable } from "react-smooth-dnd";
+import { GET_TASKS_BY_WEEKNO } from "../../graphql/query/task.query";
+import { Task, TaskList as TaskListType } from "../../types";
 import {
   ADD_TASK,
   ADD_TASK_INTO_WEEKLY_TASKLIST,
   UPDATE_TASKLIST,
-} from 'graphql/mutation/task.mutation';
-import TaskItem from './TaskItem/TaskItem';
-import { TaskItemPrimary } from './TaskItem/TaskItem.style';
+} from "graphql/mutation/task.mutation";
+import TaskItem from "./TaskItem/TaskItem";
+import { TaskItemPrimary } from "./TaskItem/TaskItem.style";
 import {
   TaskItemWrapper,
   TaskItemContent,
   TaskItemControl,
-} from './TaskItem/TaskItem.style';
-import { Button } from 'primereact/button';
-import { UPDATE_TASK_STATUS } from '../../graphql/mutation/task.mutation';
+} from "./TaskItem/TaskItem.style";
+import { Button } from "primereact/button";
+import { UPDATE_TASK_STATUS } from "../../graphql/mutation/task.mutation";
 
 type Props = {
   weekNo: string;
+  displayDialog(): void;
 };
 
 const items = [
   {
-    label: 'Edit',
-    icon: 'pi pi-refresh',
+    label: "Edit",
+    icon: "pi pi-refresh",
     command: (e): void => alert(e),
   },
   {
-    label: 'Delete',
-    icon: 'pi pi-times',
+    label: "Delete",
+    icon: "pi pi-times",
     command: (e): void => alert(e),
   },
 ];
 
-const TaskList: React.FC<Props> = ({ weekNo }) => {
-  const [selectedTask, setSelectedTask] = useState('');
-  const [newTask, setNewTask] = useState('');
+const TaskList: React.FC<Props> = ({ weekNo, displayDialog }) => {
+  const [selectedTask, setSelectedTask] = useState("");
+  const [newTask, setNewTask] = useState("");
   const [addTask] = useMutation(ADD_TASK);
   const [updateTaskStatus] = useMutation(UPDATE_TASK_STATUS);
   const [updateTaskList] = useMutation(UPDATE_TASKLIST);
@@ -72,13 +74,13 @@ const TaskList: React.FC<Props> = ({ weekNo }) => {
   const handleAddTask = async (
     event: React.KeyboardEvent<HTMLInputElement>
   ) => {
-    if (event.key == 'Enter') {
+    if (event.key == "Enter") {
       try {
         await addTask({
           variables: {
             title: newTask,
             primary: false,
-            status: 'Doing',
+            status: "Doing",
           },
         });
         await updateTaskList({
@@ -92,7 +94,7 @@ const TaskList: React.FC<Props> = ({ weekNo }) => {
           variables: { from: { weekNo }, to: { title: newTask } },
         });
         await refetch();
-        setNewTask('');
+        setNewTask("");
       } catch (error) {
         console.log(error);
       }
@@ -102,7 +104,7 @@ const TaskList: React.FC<Props> = ({ weekNo }) => {
   const handleTaskDone = async (title) => {
     try {
       await updateTaskStatus({
-        variables: { title: title, status: 'Done' },
+        variables: { title: title, status: "Done" },
       });
       await updateTaskList({
         variables: {
@@ -111,6 +113,7 @@ const TaskList: React.FC<Props> = ({ weekNo }) => {
           completed: taskList?.completed + 1,
         },
       });
+      displayDialog();
       await refetch();
     } catch (error) {
       console.log(error, error.message);
@@ -118,7 +121,7 @@ const TaskList: React.FC<Props> = ({ weekNo }) => {
   };
 
   const completedRate: string = (
-    taskList?.completed / parseFloat(taskList?.total)
+    taskList?.completed / parseFloat(taskList?.total) || 0.001
   ).toFixed(2);
 
   if (loading) return <p>loading...</p>;
@@ -126,7 +129,7 @@ const TaskList: React.FC<Props> = ({ weekNo }) => {
 
   return (
     <TabView renderActiveOnly={true}>
-      <TabPanel header='Task List' leftIcon='pi pi-tags'>
+      <TabPanel header="Task List" leftIcon="pi pi-tags">
         <h3>{taskList?.weekNo}</h3>
         <p>Total: {taskList?.total}</p>
         <p>
@@ -135,14 +138,14 @@ const TaskList: React.FC<Props> = ({ weekNo }) => {
           %)
         </p>
         <InputText
-          id='in'
-          style={{ width: '100%', margin: '10px 0' }}
+          id="in"
+          style={{ width: "100%", margin: "10px 0" }}
           value={newTask}
-          placeholder='add here...'
+          placeholder="add here..."
           onChange={handleTextChange}
           onKeyDown={handleAddTask}
         />
-        <ScrollPanel style={{ width: '100%', height: '52vh' }}>
+        <ScrollPanel style={{ width: "100%", height: "52vh" }}>
           {/* <ListBox
             style={{ width: '100%' }}
             filterPlaceholder='Find'
@@ -154,15 +157,15 @@ const TaskList: React.FC<Props> = ({ weekNo }) => {
           <Container>
             {taskDragAndDropList?.map((task) => (
               <Draggable key={task?.id}>
-                <TaskItemWrapper done={task?.status === 'Done'}>
+                <TaskItemWrapper done={task?.status === "Done"}>
                   <TaskItemPrimary primary={task?.primary}></TaskItemPrimary>
-                  <TaskItemContent done={task?.status === 'Done'}>
+                  <TaskItemContent done={task?.status === "Done"}>
                     {task?.data}
                   </TaskItemContent>
                   <TaskItemControl>
                     <Button
-                      icon='pi pi-check'
-                      className='p-button-secondary'
+                      icon="pi pi-check"
+                      className="p-button-secondary"
                       onClick={() => handleTaskDone(task?.data)}
                     />
                   </TaskItemControl>
@@ -176,4 +179,12 @@ const TaskList: React.FC<Props> = ({ weekNo }) => {
   );
 };
 
-export default TaskList;
+const mapDispatchToProps = (dispatch) => ({
+  displayDialog: () => {
+    dispatch({
+      type: "DISPLAY_DIALOG",
+    });
+  },
+});
+
+export default connect(null, mapDispatchToProps)(TaskList);
