@@ -52,7 +52,6 @@ const TrackingPage: React.FC<IPageOwnProps> = ({ isVisible, hideDialog }) => {
       <PageWrapper>
         <HeaderSection>
           <p>hi {user?.name}</p>
-          <p>log out</p>
         </HeaderSection>
         <ContentSection>
           <LeftContentSection>
@@ -72,15 +71,12 @@ const TrackingPage: React.FC<IPageOwnProps> = ({ isVisible, hideDialog }) => {
           <p>{currentDateTime}</p>
         </FooterSection>
         <Dialog
-          header="Task added"
+          header="Task done"
           visible={isVisible}
           style={{ width: "50vw" }}
           onHide={() => hideDialog()}
         >
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias facilis
-          voluptates dolor consequatur vel nesciunt est dolore eligendi autem
-          iste, eum minus voluptate! At doloribus tempora cupiditate ratione
-          vero voluptatibus.
+          Good job, bro! Keep going!
         </Dialog>
       </PageWrapper>
     </>

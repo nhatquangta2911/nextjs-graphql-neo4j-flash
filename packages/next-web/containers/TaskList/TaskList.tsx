@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import { useMutation, useQuery } from "@apollo/react-hooks";
 import { TabView, TabPanel } from "primereact/tabview";
 import { ScrollPanel } from "primereact/scrollpanel";
-import { ListBox } from "primereact/listbox";
 import { InputText } from "primereact/inputtext";
+import { Checkbox } from "primereact/checkbox";
 import { Container, Draggable } from "react-smooth-dnd";
 import { GET_TASKS_BY_WEEKNO } from "../../graphql/query/task.query";
 import { Task, TaskList as TaskListType } from "../../types";
@@ -13,7 +13,6 @@ import {
   ADD_TASK_INTO_WEEKLY_TASKLIST,
   UPDATE_TASKLIST,
 } from "graphql/mutation/task.mutation";
-import TaskItem from "./TaskItem/TaskItem";
 import { TaskItemPrimary } from "./TaskItem/TaskItem.style";
 import {
   TaskItemWrapper,
@@ -23,27 +22,16 @@ import {
 import { Button } from "primereact/button";
 import { UPDATE_TASK_STATUS } from "../../graphql/mutation/task.mutation";
 
-type Props = {
+type TaskListProps = {
   weekNo: string;
   displayDialog(): void;
 };
 
-const items = [
-  {
-    label: "Edit",
-    icon: "pi pi-refresh",
-    command: (e): void => alert(e),
-  },
-  {
-    label: "Delete",
-    icon: "pi pi-times",
-    command: (e): void => alert(e),
-  },
-];
-
-const TaskList: React.FC<Props> = ({ weekNo, displayDialog }) => {
+const TaskList: React.FC<TaskListProps> = ({ weekNo, displayDialog }) => {
   const [selectedTask, setSelectedTask] = useState("");
   const [newTask, setNewTask] = useState("");
+  const [newTaskPrimary, setNewTaskPrimary] = useState(false);
+
   const [addTask] = useMutation(ADD_TASK);
   const [updateTaskStatus] = useMutation(UPDATE_TASK_STATUS);
   const [updateTaskList] = useMutation(UPDATE_TASKLIST);
@@ -79,7 +67,7 @@ const TaskList: React.FC<Props> = ({ weekNo, displayDialog }) => {
         await addTask({
           variables: {
             title: newTask,
-            primary: false,
+            primary: newTaskPrimary,
             status: "Doing",
           },
         });
@@ -137,23 +125,24 @@ const TaskList: React.FC<Props> = ({ weekNo, displayDialog }) => {
           {Math.round(parseFloat(completedRate) * 100)}
           %)
         </p>
-        <InputText
-          id="in"
-          style={{ width: "100%", margin: "10px 0" }}
-          value={newTask}
-          placeholder="add here..."
-          onChange={handleTextChange}
-          onKeyDown={handleAddTask}
-        />
+        <div className="p-inputgroup" style={{ margin: "2vh 0" }}>
+          <span className="p-inputgroup-addon">
+            <Checkbox
+              checked={newTaskPrimary}
+              onChange={() => setNewTaskPrimary(!newTaskPrimary)}
+              tooltip="Important Task?"
+            />
+          </span>
+          <InputText
+            style={{ width: "100%" }}
+            id="in"
+            value={newTask}
+            placeholder="add task..."
+            onChange={handleTextChange}
+            onKeyDown={handleAddTask}
+          />
+        </div>
         <ScrollPanel style={{ width: "100%", height: "52vh" }}>
-          {/* <ListBox
-            style={{ width: '100%' }}
-            filterPlaceholder='Find'
-            multiple={true}
-            options={taskUIList}
-            value={ || 0}
-            onChange={(e) => setSelectedTasks(e.value)}
-          /> */}
           <Container>
             {taskDragAndDropList?.map((task) => (
               <Draggable key={task?.id}>
@@ -164,6 +153,7 @@ const TaskList: React.FC<Props> = ({ weekNo, displayDialog }) => {
                   </TaskItemContent>
                   <TaskItemControl>
                     <Button
+                      disabled={task?.status === "Done"}
                       icon="pi pi-check"
                       className="p-button-secondary"
                       onClick={() => handleTaskDone(task?.data)}
