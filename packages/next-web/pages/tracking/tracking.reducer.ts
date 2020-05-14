@@ -5,6 +5,7 @@ export interface IPageTrackingState {
     dialogVisible: boolean;
     dialogContent: string;
   };
+  newestTask: string;
 }
 
 const initialState: IPageTrackingState = {
@@ -12,6 +13,7 @@ const initialState: IPageTrackingState = {
     dialogVisible: false,
     dialogContent: "",
   },
+  newestTask: "Not updated",
 };
 
 export const pageTrackingReducer = (
@@ -35,11 +37,14 @@ export const pageTrackingReducer = (
           dialogContent: "",
         },
       };
+    case "UPDATE_NEWEST_TASK":
+      return {
+        ...state,
+        newestTask: action.newestTask,
+      };
     default:
       return state;
   }
 };
 
-export type StoreBusinessComponentReducer = ReturnType<
-  typeof pageTrackingReducer
->;
+export type StorePageTrackingReducer = ReturnType<typeof pageTrackingReducer>;

@@ -28,9 +28,14 @@ import { IActionPageTracking } from "pages/tracking/tracking.action";
 type TaskListProps = {
   weekNo: string;
   displayDialog(title: string): void;
+  updateNewestTask(title: string): void;
 };
 
-const TaskList: React.FC<TaskListProps> = ({ weekNo, displayDialog }) => {
+const TaskList: React.FC<TaskListProps> = ({
+  weekNo,
+  displayDialog,
+  updateNewestTask,
+}) => {
   const [newTask, setNewTask] = useState("");
   const [newTaskPrimary, setNewTaskPrimary] = useState(false);
 
@@ -84,6 +89,7 @@ const TaskList: React.FC<TaskListProps> = ({ weekNo, displayDialog }) => {
           variables: { from: { weekNo }, to: { title: newTask } },
         });
         await refetch();
+        updateNewestTask(newTask);
         setNewTask("");
       } catch (error) {
         console.log(error);
@@ -145,7 +151,14 @@ const TaskList: React.FC<TaskListProps> = ({ weekNo, displayDialog }) => {
           />
         </div>
         <ScrollPanel style={{ width: "100%", height: "52vh" }}>
-          <Container onDrop={(e) => setDndItems(applyDrag(dndItems, e))}>
+          <Container
+            onDrop={(e) => {
+              const newDndItems = applyDrag(dndItems, e);
+              setDndItems(newDndItems);
+              updateNewestTask(newDndItems[0]?.data);
+              console.log(newDndItems);
+            }}
+          >
             {dndItems?.map((task) => (
               <Draggable key={task?.id}>
                 <TaskItemWrapper done={task?.status === "Done"}>
@@ -176,6 +189,12 @@ const mapDispatchToProps = (dispatch: Dispatch<IActionPageTracking>) => ({
     dispatch({
       type: "DISPLAY_DIALOG",
       title,
+    });
+  },
+  updateNewestTask: (title: string) => {
+    dispatch({
+      type: "UPDATE_NEWEST_TASK",
+      newestTask: title,
     });
   },
 });

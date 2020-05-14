@@ -89,3 +89,19 @@ export const HomeRouteSection = styled(Column)`
   height: auto;
   padding: 1vh 0;
 `;
+
+export const ContentRouteSection = styled(Column)`
+  width: 100%;
+  height: auto;
+  padding: 1vh 0;
+`;
+
+export const NavigateRouteSection = styled(Column)`
+  width: 100%;
+  height: auto;
+  padding: 1vh 0;
+`;
+
+export const NewestTaskSection = styled(Column)`
+  justify-content: center;
+`;

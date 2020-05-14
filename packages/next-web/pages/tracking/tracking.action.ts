@@ -7,4 +7,12 @@ export interface IActionHideDialog {
   type: "HIDE_DIALOG";
 }
 
-export type IActionPageTracking = IActionDisplayDialog | IActionHideDialog;
+export interface IActionUpdateNewestTask {
+  type: "UPDATE_NEWEST_TASK";
+  newestTask: string;
+}
+
+export type IActionPageTracking =
+  | IActionDisplayDialog
+  | IActionHideDialog
+  | IActionUpdateNewestTask;

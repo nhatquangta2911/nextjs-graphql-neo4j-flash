@@ -1,8 +1,16 @@
-import styled, { createGlobalStyle } from 'styled-components';
+import styled, { createGlobalStyle } from "styled-components";
 
 export const Row = styled.div`
   display: flex;
   flex-direction: row;
+  align-self: stretch;
+  align-items: center;
+`;
+
+export const CenteredRow = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
   align-self: stretch;
   align-items: center;
 `;

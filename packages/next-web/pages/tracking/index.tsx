@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { Dispatch } from "redux";
-import { connect } from "react-redux";
+import Link from "next/link";
 import Head from "next/head";
+import { connect } from "react-redux";
+import { Dispatch } from "redux";
 import { withApollo } from "../../helper/apollo";
 import { useQuery } from "@apollo/react-hooks";
 import moment from "moment";
@@ -14,6 +15,7 @@ import {
   RightContentSection,
   UpperLeftContentSection,
   LowerLeftContentSection,
+  NewestTaskSection,
 } from "styled/pages.style";
 import {
   Tracking as TrackingContainer,
@@ -26,6 +28,7 @@ import { getWeekNo } from "helper/dateTime";
 import { IPageTrackingState } from "./tracking.reducer";
 import { IActionPageTracking } from "./tracking.action";
 import { StoreRootState } from "reducers/rootReducer";
+import { Column, Row, CenteredRow } from "styled/global.style";
 
 export interface IPageOwnProps {
   dialog: {
@@ -33,12 +36,17 @@ export interface IPageOwnProps {
     dialogContent: string;
   };
   hideDialog(): void;
+  newestTask: string;
 }
 export interface IPageOwnState {
   user: User;
 }
 
-const TrackingPage: React.FC<IPageOwnProps> = ({ dialog, hideDialog }) => {
+const TrackingPage: React.FC<IPageOwnProps> = ({
+  dialog,
+  hideDialog,
+  newestTask,
+}) => {
   const [username, setUsername] = useState("");
   const today = moment();
   const currentDateTime = today.format("MMMM Do YYYY, h:mm:ss a");
@@ -59,6 +67,15 @@ const TrackingPage: React.FC<IPageOwnProps> = ({ dialog, hideDialog }) => {
       <PageWrapper>
         <HeaderSection>
           <p>hi {user?.name}</p>
+          <NewestTaskSection>
+            <CenteredRow>Newest Task</CenteredRow>
+            <CenteredRow>
+              <h3>{newestTask}</h3>
+            </CenteredRow>
+          </NewestTaskSection>
+          <Link href="/">
+            <a>back</a>
+          </Link>
         </HeaderSection>
         <ContentSection>
           <LeftContentSection>
@@ -93,6 +110,7 @@ const TrackingPage: React.FC<IPageOwnProps> = ({ dialog, hideDialog }) => {
 
 const mapStateToProps = (state: IPageTrackingState) => ({
   dialog: state?.dialog,
+  newestTask: state?.newestTask,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<IActionPageTracking>) => ({
