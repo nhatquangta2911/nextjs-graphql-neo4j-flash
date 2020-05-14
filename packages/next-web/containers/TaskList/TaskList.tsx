@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { useMutation, useQuery } from "@apollo/react-hooks";
 import { TabView, TabPanel } from "primereact/tabview";
@@ -21,6 +21,7 @@ import {
 } from "./TaskItem/TaskItem.style";
 import { Button } from "primereact/button";
 import { UPDATE_TASK_STATUS } from "../../graphql/mutation/task.mutation";
+import { applyDrag } from "helper/dnd";
 
 type TaskListProps = {
   weekNo: string;
@@ -42,16 +43,16 @@ const TaskList: React.FC<TaskListProps> = ({ weekNo, displayDialog }) => {
     variables: { weekNo },
   });
   const taskList = data?.TaskList[0];
-  const taskUIList = taskList?.tasks.map((task: Task) => ({
-    label: task?.title,
-    value: task?._id,
-  }));
   const taskDragAndDropList = taskList?.tasks.map((task: Task) => ({
     data: task?.title,
     id: task?._id,
     primary: task?.primary,
     status: task?.status,
   }));
+  const [dndItems, setDndItems] = useState(taskDragAndDropList);
+  useEffect(() => {
+    setDndItems(taskDragAndDropList);
+  }, [data]);
 
   const handleTextChange: React.ChangeEventHandler<HTMLInputElement> = (
     event: any
@@ -143,8 +144,8 @@ const TaskList: React.FC<TaskListProps> = ({ weekNo, displayDialog }) => {
           />
         </div>
         <ScrollPanel style={{ width: "100%", height: "52vh" }}>
-          <Container>
-            {taskDragAndDropList?.map((task) => (
+          <Container onDrop={(e) => setDndItems(applyDrag(dndItems, e))}>
+            {dndItems?.map((task) => (
               <Draggable key={task?.id}>
                 <TaskItemWrapper done={task?.status === "Done"}>
                   <TaskItemPrimary primary={task?.primary}></TaskItemPrimary>
