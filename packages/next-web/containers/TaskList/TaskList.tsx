@@ -137,7 +137,7 @@ const TaskList: React.FC<TaskListProps> = ({ weekNo, displayDialog }) => {
             style={{ width: "100%" }}
             id="in"
             value={newTask}
-            placeholder="add task..."
+            placeholder="Add your task here"
             onChange={handleTextChange}
             onKeyDown={handleAddTask}
           />

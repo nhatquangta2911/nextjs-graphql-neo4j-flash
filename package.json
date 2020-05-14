@@ -4,6 +4,8 @@
   "scripts": {
     "dev:next-web": "yarn workspace next-web dev",
     "dev:api": "yarn workspace api dev",
+    "build:next-web": "yarn workspace next-web build",
+    "build": "lerna run --parallel build",
     "dev": "lerna run --parallel dev"
   },
   "devDependencies": {
