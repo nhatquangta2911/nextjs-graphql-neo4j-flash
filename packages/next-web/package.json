@@ -42,7 +42,8 @@
     "react-transition-group": "^4.3.0",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
-    "styled-components": "^5.1.0"
+    "styled-components": "^5.1.0",
+    "typesafe-actions": "^5.1.0"
   },
   "scripts": {
     "dev": "next -p 80",

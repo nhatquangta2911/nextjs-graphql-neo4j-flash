@@ -13,10 +13,11 @@ import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";
 import { RootReducer } from "reducers/rootReducer";
 import { businessComponentReducer } from "reducers/businessComponentReducer";
+import { pageTrackingReducer } from "./tracking/tracking.reducer";
 
 export default function ExtendedApp({ Component, pageProps }: AppProps) {
   const AppReduxStore = createStore(
-    businessComponentReducer,
+    pageTrackingReducer,
     applyMiddleware(thunk)
   );
   return (

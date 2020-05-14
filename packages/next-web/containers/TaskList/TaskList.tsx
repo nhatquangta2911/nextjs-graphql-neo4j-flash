@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Dispatch } from "react";
 import { connect } from "react-redux";
 import { useMutation, useQuery } from "@apollo/react-hooks";
 import { TabView, TabPanel } from "primereact/tabview";
@@ -22,14 +22,15 @@ import {
 import { Button } from "primereact/button";
 import { UPDATE_TASK_STATUS } from "../../graphql/mutation/task.mutation";
 import { applyDrag } from "helper/dnd";
+import { IPageTrackingState } from "pages/tracking/tracking.reducer";
+import { IActionPageTracking } from "pages/tracking/tracking.action";
 
 type TaskListProps = {
   weekNo: string;
-  displayDialog(): void;
+  displayDialog(title: string): void;
 };
 
 const TaskList: React.FC<TaskListProps> = ({ weekNo, displayDialog }) => {
-  const [selectedTask, setSelectedTask] = useState("");
   const [newTask, setNewTask] = useState("");
   const [newTaskPrimary, setNewTaskPrimary] = useState(false);
 
@@ -90,7 +91,7 @@ const TaskList: React.FC<TaskListProps> = ({ weekNo, displayDialog }) => {
     }
   };
 
-  const handleTaskDone = async (title) => {
+  const handleTaskDone = async (title: string) => {
     try {
       await updateTaskStatus({
         variables: { title: title, status: "Done" },
@@ -102,7 +103,7 @@ const TaskList: React.FC<TaskListProps> = ({ weekNo, displayDialog }) => {
           completed: taskList?.completed + 1,
         },
       });
-      displayDialog();
+      displayDialog(title);
       await refetch();
     } catch (error) {
       console.log(error, error.message);
@@ -170,12 +171,13 @@ const TaskList: React.FC<TaskListProps> = ({ weekNo, displayDialog }) => {
   );
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  displayDialog: () => {
+const mapDispatchToProps = (dispatch: Dispatch<IActionPageTracking>) => ({
+  displayDialog: (title: string) => {
     dispatch({
       type: "DISPLAY_DIALOG",
+      title,
     });
   },
 });
 
-export default connect(null, mapDispatchToProps)(TaskList);
+export default connect<IPageTrackingState>(null, mapDispatchToProps)(TaskList);

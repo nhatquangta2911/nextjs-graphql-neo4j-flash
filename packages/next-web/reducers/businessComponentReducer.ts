@@ -14,8 +14,9 @@ export const businessComponentReducer = (state = initialState, action) => {
         ...state,
         visible: false,
       };
+    default:
+      return state;
   }
-  return state;
 };
 
 export type StoreBusinessComponentReducer = ReturnType<

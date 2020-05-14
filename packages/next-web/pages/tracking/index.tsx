@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
+import { Dispatch } from "redux";
 import { connect } from "react-redux";
 import Head from "next/head";
-import { withApollo } from "../helper/apollo";
+import { withApollo } from "../../helper/apollo";
 import { useQuery } from "@apollo/react-hooks";
 import moment from "moment";
 import {
@@ -17,21 +18,27 @@ import {
 import {
   Tracking as TrackingContainer,
   TaskList as TaskListContainer,
-} from "../containers";
+} from "../../containers";
 import { Dialog } from "primereact/dialog";
-import { User, TaskList } from "../types";
+import { User } from "../../types";
 import { GET_USER_INFO } from "graphql/query/task.query";
 import { getWeekNo } from "helper/dateTime";
+import { IPageTrackingState } from "./tracking.reducer";
+import { IActionPageTracking } from "./tracking.action";
+import { StoreRootState } from "reducers/rootReducer";
 
 export interface IPageOwnProps {
-  isVisible: boolean;
+  dialog: {
+    dialogVisible: boolean;
+    dialogContent: string;
+  };
   hideDialog(): void;
 }
 export interface IPageOwnState {
   user: User;
 }
 
-const TrackingPage: React.FC<IPageOwnProps> = ({ isVisible, hideDialog }) => {
+const TrackingPage: React.FC<IPageOwnProps> = ({ dialog, hideDialog }) => {
   const [username, setUsername] = useState("");
   const today = moment();
   const currentDateTime = today.format("MMMM Do YYYY, h:mm:ss a");
@@ -71,23 +78,24 @@ const TrackingPage: React.FC<IPageOwnProps> = ({ isVisible, hideDialog }) => {
           <p>{currentDateTime}</p>
         </FooterSection>
         <Dialog
-          header="Task done"
-          visible={isVisible}
+          header="Congrats, keep going!"
+          visible={dialog?.dialogVisible}
           style={{ width: "50vw" }}
           onHide={() => hideDialog()}
         >
-          Good job, bro! Keep going!
+          Task done:{" "}
+          <span style={{ fontWeight: "bold" }}>{dialog?.dialogContent}</span>
         </Dialog>
       </PageWrapper>
     </>
   );
 };
 
-const mapStateToProps = (state) => ({
-  isVisible: state?.visible,
+const mapStateToProps = (state: IPageTrackingState) => ({
+  dialog: state?.dialog,
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = (dispatch: Dispatch<IActionPageTracking>) => ({
   hideDialog: () => {
     dispatch({
       type: "HIDE_DIALOG",

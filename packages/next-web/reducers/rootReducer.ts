@@ -1,7 +1,9 @@
+import { businessComponentReducer } from "reducers/businessComponentReducer";
+import { pageTrackingReducer } from "./../pages/tracking/tracking.reducer";
 import { combineReducers } from "redux";
-import { businessComponentReducer } from "./businessComponentReducer";
 
 export const RootReducer = combineReducers({
+  pageTrackingReducer,
   businessComponentReducer,
 });
 
