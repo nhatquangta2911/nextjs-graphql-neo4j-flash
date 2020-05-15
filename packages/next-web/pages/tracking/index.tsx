@@ -29,6 +29,7 @@ import { IPageTrackingState } from "./tracking.reducer";
 import { IActionPageTracking } from "./tracking.action";
 import { StoreRootState } from "reducers/rootReducer";
 import { Column, Row, CenteredRow } from "styled/global.style";
+import { HeaderTask } from "components";
 
 export interface IPageOwnProps {
   dialog: {
@@ -67,12 +68,7 @@ const TrackingPage: React.FC<IPageOwnProps> = ({
       <PageWrapper>
         <HeaderSection>
           <p>hi {user?.name}</p>
-          <NewestTaskSection>
-            <CenteredRow>Newest Task</CenteredRow>
-            <CenteredRow>
-              <h3>{newestTask}</h3>
-            </CenteredRow>
-          </NewestTaskSection>
+          <HeaderTask newestTask={newestTask} />
           <Link href="/">
             <a>back</a>
           </Link>
