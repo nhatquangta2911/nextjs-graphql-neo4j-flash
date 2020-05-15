@@ -1,14 +1,15 @@
-import React from 'react';
-import { useQuery, useMutation } from '@apollo/react-hooks';
-import { ScrollPanel } from 'primereact/scrollpanel';
-import { Task } from '../../../types/index';
-import withApollo from '../../../pages/tracking';
+import React from "react";
+import { useQuery, useMutation } from "@apollo/react-hooks";
+import { ScrollPanel } from "primereact/scrollpanel";
+import { Task } from "../../../types/index";
+import withApollo from "../../../pages/tracking";
+import { useSpring, animated } from "react-spring";
 import {
   TaskItemWrapper,
   TaskItemContent,
   TaskItemControl,
   TaskItemPrimary,
-} from './TaskItem.style';
+} from "./TaskItem.style";
 
 export interface TaskItemProps {
   task: string;

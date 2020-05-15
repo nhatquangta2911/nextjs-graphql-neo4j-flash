@@ -20,6 +20,7 @@ import {
   TaskItemControl,
 } from "./TaskItem/TaskItem.style";
 import { Button } from "primereact/button";
+import { Slide, Bounce } from "react-awesome-reveal";
 import { UPDATE_TASK_STATUS } from "../../graphql/mutation/task.mutation";
 import { applyDrag } from "helper/dnd";
 import { IPageTrackingState } from "pages/tracking/tracking.reducer";
@@ -159,24 +160,26 @@ const TaskList: React.FC<TaskListProps> = ({
               console.log(newDndItems);
             }}
           >
-            {dndItems?.map((task) => (
-              <Draggable key={task?.id}>
-                <TaskItemWrapper done={task?.status === "Done"}>
-                  <TaskItemPrimary primary={task?.primary}></TaskItemPrimary>
-                  <TaskItemContent done={task?.status === "Done"}>
-                    {task?.data}
-                  </TaskItemContent>
-                  <TaskItemControl>
-                    <Button
-                      disabled={task?.status === "Done"}
-                      icon="pi pi-check"
-                      className="p-button-secondary"
-                      onClick={() => handleTaskDone(task?.data)}
-                    />
-                  </TaskItemControl>
-                </TaskItemWrapper>
-              </Draggable>
-            ))}
+            <Slide cascade direction="right">
+              {dndItems?.map((task) => (
+                <Draggable key={task?.id}>
+                  <TaskItemWrapper done={task?.status === "Done"}>
+                    <TaskItemPrimary primary={task?.primary}></TaskItemPrimary>
+                    <TaskItemContent done={task?.status === "Done"}>
+                      {task?.data}
+                    </TaskItemContent>
+                    <TaskItemControl>
+                      <Button
+                        disabled={task?.status === "Done"}
+                        icon="pi pi-check"
+                        className="p-button-secondary"
+                        onClick={() => handleTaskDone(task?.data)}
+                      />
+                    </TaskItemControl>
+                  </TaskItemWrapper>
+                </Draggable>
+              ))}
+            </Slide>
           </Container>
         </ScrollPanel>
       </TabPanel>

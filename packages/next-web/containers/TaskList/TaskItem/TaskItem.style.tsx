@@ -4,11 +4,11 @@ import { Row } from "../../../styled/global.style";
 export const TaskItemWrapper = styled(Row)`
   width: 100%;
   height: auto;
-  min-height: 6vh;
+  min-height: 4vh;
   justify-content: space-between;
   margin-bottom: 1vh;
   border-radius: 4px;
-  opacity: ${(props) => (props.done ? 0.6 : 1)};
+  opacity: ${(props) => (props.done ? 0.3 : 1)};
 `;
 
 export const TaskItemPrimary = styled(Row)`

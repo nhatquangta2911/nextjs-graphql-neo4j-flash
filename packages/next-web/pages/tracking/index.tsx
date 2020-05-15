@@ -68,7 +68,7 @@ const TrackingPage: React.FC<IPageOwnProps> = ({
       <PageWrapper>
         <HeaderSection>
           <p>hi {user?.name}</p>
-          <HeaderTask newestTask={newestTask} />
+          <HeaderTask />
           <Link href="/">
             <a>back</a>
           </Link>
