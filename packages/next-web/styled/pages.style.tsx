@@ -2,9 +2,10 @@ import styled from "styled-components";
 import { Row, Column } from "./global.style";
 
 export const PageWrapper = styled.div`
-  width: 100%;
+  width: 95%;
   height: auto;
   min-height: 100vh;
+  position: relative;
   display: flex;
   flex-direction: column;
   background-color: #f9f9f9;
@@ -12,8 +13,8 @@ export const PageWrapper = styled.div`
   padding: 0 2vw;
   justify-content: space-between;
 
-  @media (max-width: 768px) {
-    padding: 0 30px;
+  @media (max-width: 900px) {
+    width: 100%;
   }
 
   @media (max-width: 1199px) {
@@ -23,7 +24,9 @@ export const PageWrapper = styled.div`
 
 export const HeaderSection = styled(Row)`
   width: 100%;
-  height: 8vh;
+  min-height: 8vh;
+  position: absolute;
+  top: 0;
   background-color: #f4f4f4;
   border-radius: 7px;
   padding: 2px 0;
@@ -32,23 +35,33 @@ export const HeaderSection = styled(Row)`
 
 export const FooterSection = styled(Row)`
   width: 100%;
+  min-height: 8vh;
   background-color: #f4f4f4;
   height: 8vh;
+  position: absolute;
+  bottom: 0;
+  padding: 2px 0;
   border-radius: 7px;
   justify-content: space-between;
 `;
 
 export const ContentSection = styled(Row)`
   width: 100%;
-  height: 80vh;
+  min-height: 80vh;
+  position: absolute;
+  top: 8vh;
   justify-content: space-between;
   padding: 5px 0;
+
+  @media (max-width: 900px) {
+    flex-direction: column;
+  }
 `;
 
 export const LeftContentSection = styled(Column)`
   width: 68vw;
   height: 100%;
-  justify-content: space-between;
+  justify-content: flex-start;
   background-color: #f4f4f4;
   border-radius: 7px;
   margin-right: 1vw;
@@ -60,7 +73,6 @@ export const RightContentSection = styled(Column)`
   background-color: #f4f4f4;
   border-radius: 7px;
   justify-content: space-between;
-  padding: 0 2px;
 `;
 
 export const UpperLeftContentSection = styled(Row)`
