@@ -1,4 +1,4 @@
-import styled, { createGlobalStyle } from "styled-components";
+import styled, { createGlobalStyle } from 'styled-components';
 
 export const Row = styled.div`
   display: flex;
@@ -13,6 +13,12 @@ export const CenteredRow = styled.div`
   justify-content: center;
   align-self: stretch;
   align-items: center;
+  font-size: 0.8em;
+`;
+
+export const CenteredRowTitle = styled(CenteredRow)`
+  font-size: 1em;
+  font-weight: bold;
 `;
 
 export const Column = styled.div`

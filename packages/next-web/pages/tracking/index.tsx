@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
-import Link from "next/link";
-import Head from "next/head";
-import { connect } from "react-redux";
-import { Dispatch } from "redux";
-import { withApollo } from "../../helper/apollo";
-import { useQuery } from "@apollo/react-hooks";
+import React, { useState, useEffect } from 'react';
+import Link from 'next/link';
+import Head from 'next/head';
+import { connect } from 'react-redux';
+import { Dispatch } from 'redux';
+import { withApollo } from '../../helper/apollo';
+import { useQuery } from '@apollo/react-hooks';
 import {
   PageWrapper,
   HeaderSection,
@@ -14,18 +14,18 @@ import {
   RightContentSection,
   UpperLeftContentSection,
   LowerLeftContentSection,
-} from "styled/pages.style";
+} from 'styled/pages.style';
 import {
   Tracking as TrackingContainer,
   TaskList as TaskListContainer,
-} from "../../containers";
-import { Dialog } from "primereact/dialog";
-import { User } from "../../types";
-import { GET_USER_INFO } from "graphql/query/task.query";
-import { getWeekNo } from "helper/dateTime";
-import { IPageTrackingState } from "./tracking.reducer";
-import { IActionPageTracking } from "./tracking.action";
-import { HeaderTask, SocialNetwork, Quote } from "components";
+} from '../../containers';
+import { Dialog } from 'primereact/dialog';
+import { User } from '../../types';
+import { GET_USER_INFO } from 'graphql/query/task.query';
+import { getWeekNo } from 'helper/dateTime';
+import { IPageTrackingState } from './tracking.reducer';
+import { IActionPageTracking } from './tracking.action';
+import { HeaderTask, SocialNetwork, Quote } from 'components';
 
 export interface IPageOwnProps {
   dialog: {
@@ -40,12 +40,12 @@ export interface IPageOwnState {
 }
 
 const TrackingPage: React.FC<IPageOwnProps> = ({ dialog, hideDialog }) => {
-  const [, setUsername] = useState("");
+  const [username, setUsername] = useState('');
   useEffect(() => {
-    setUsername(localStorage.getItem("username"));
+    setUsername(localStorage.getItem('username'));
   });
   const { data } = useQuery(GET_USER_INFO, {
-    variables: { name: "Shawn" },
+    variables: { name: 'Shawn' },
   });
   const user = data?.User[0];
   // const weekNo = user?.taskList[0]?.weekNo;
@@ -61,7 +61,7 @@ const TrackingPage: React.FC<IPageOwnProps> = ({ dialog, hideDialog }) => {
         <HeaderSection>
           <p>hi {user?.name}</p>
           <HeaderTask />
-          <Link href="/">
+          <Link href='/'>
             <a>back</a>
           </Link>
         </HeaderSection>
@@ -70,7 +70,9 @@ const TrackingPage: React.FC<IPageOwnProps> = ({ dialog, hideDialog }) => {
             <UpperLeftContentSection>
               <TrackingContainer github={user?.github} />
             </UpperLeftContentSection>
-            <LowerLeftContentSection>update soon...</LowerLeftContentSection>
+            <LowerLeftContentSection>
+              <TrackingContainer github='sonduong305' />
+            </LowerLeftContentSection>
           </LeftContentSection>
           <RightContentSection>
             <TaskListContainer
@@ -85,13 +87,13 @@ const TrackingPage: React.FC<IPageOwnProps> = ({ dialog, hideDialog }) => {
           <SocialNetwork />
         </FooterSection>
         <Dialog
-          header="Congrats, keep going!"
+          header='Congrats, keep going!'
           visible={dialog?.dialogVisible}
-          style={{ width: "50vw" }}
+          style={{ width: '50vw' }}
           onHide={() => hideDialog()}
         >
-          Task done:{" "}
-          <span style={{ fontWeight: "bold" }}>{dialog?.dialogContent}</span>
+          Task done:{' '}
+          <span style={{ fontWeight: 'bold' }}>{dialog?.dialogContent}</span>
         </Dialog>
       </PageWrapper>
     </>
@@ -106,7 +108,7 @@ const mapStateToProps = (state: IPageTrackingState) => ({
 const mapDispatchToProps = (dispatch: Dispatch<IActionPageTracking>) => ({
   hideDialog: () => {
     dispatch({
-      type: "HIDE_DIALOG",
+      type: 'HIDE_DIALOG',
     });
   },
 });
