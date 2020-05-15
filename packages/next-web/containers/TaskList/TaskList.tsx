@@ -7,7 +7,7 @@ import { InputText } from "primereact/inputtext";
 import { Checkbox } from "primereact/checkbox";
 import { Container, Draggable } from "react-smooth-dnd";
 import { GET_TASKS_BY_WEEKNO } from "../../graphql/query/task.query";
-import { Task, TaskList as TaskListType } from "../../types";
+import { Task, TaskList as TaskListType, User } from "../../types";
 import {
   ADD_TASK,
   ADD_TASK_INTO_WEEKLY_TASKLIST,
@@ -25,17 +25,24 @@ import { UPDATE_TASK_STATUS } from "../../graphql/mutation/task.mutation";
 import { applyDrag } from "helper/dnd";
 import { IPageTrackingState } from "pages/tracking/tracking.reducer";
 import { IActionPageTracking } from "pages/tracking/tracking.action";
+import Stats from "containers/Stats";
 
 type TaskListProps = {
   weekNo: string;
+  total: number;
+  completed: number;
   displayDialog(title: string): void;
   updateNewestTask(title: string): void;
+  updateStats(total: number, completed: number): void;
 };
 
 const TaskList: React.FC<TaskListProps> = ({
   weekNo,
+  total,
+  completed,
   displayDialog,
   updateNewestTask,
+  updateStats,
 }) => {
   const [newTask, setNewTask] = useState("");
   const [newTaskPrimary, setNewTaskPrimary] = useState(false);
@@ -59,6 +66,7 @@ const TaskList: React.FC<TaskListProps> = ({
   const [dndItems, setDndItems] = useState(taskDragAndDropList);
   useEffect(() => {
     setDndItems(taskDragAndDropList);
+    updateStats(taskList?.total, taskList?.completed);
   }, [data]);
 
   const handleTextChange: React.ChangeEventHandler<HTMLInputElement> = (
@@ -91,6 +99,7 @@ const TaskList: React.FC<TaskListProps> = ({
         });
         await refetch();
         updateNewestTask(newTask);
+        updateStats(taskList?.total + 1, taskList?.completed);
         setNewTask("");
       } catch (error) {
         console.log(error);
@@ -112,6 +121,7 @@ const TaskList: React.FC<TaskListProps> = ({
       });
       displayDialog(title);
       await refetch();
+      updateStats(taskList?.total, taskList?.completed);
     } catch (error) {
       console.log(error, error.message);
     }
@@ -183,6 +193,9 @@ const TaskList: React.FC<TaskListProps> = ({
           </Container>
         </ScrollPanel>
       </TabPanel>
+      <TabPanel header="Stats" leftIcon="pi pi-chart-bar">
+        <Stats weekNo={weekNo} total={total} completed={completed} />
+      </TabPanel>
     </TabView>
   );
 };
@@ -198,6 +211,13 @@ const mapDispatchToProps = (dispatch: Dispatch<IActionPageTracking>) => ({
     dispatch({
       type: "UPDATE_NEWEST_TASK",
       newestTask: title,
+    });
+  },
+  updateStats: (total: number, completed: number) => {
+    dispatch({
+      type: "UPDATE_STATS",
+      total,
+      completed,
     });
   },
 });

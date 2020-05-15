@@ -12,24 +12,26 @@ const Tracking: React.FC<Props> = (props) => {
   const { github } = props;
   return (
     <TabView renderActiveOnly={true}>
-      <TabPanel header="Github Contributions" leftIcon="pi pi-chart-bar">
-        <ScrollPanel style={{ width: "58vw", height: "30vh" }}>
-          <GithubCalendar
-            username={github}
-            color="hsl(203, 82%, 33%)"
-            fontSize={12}
-          >
-            <ReactTooltip delayShow={50} html />
-          </GithubCalendar>
-        </ScrollPanel>
+      <TabPanel
+        header="Github Contributions"
+        leftIcon="pi pi-chart-bar"
+        contentStyle={{ width: "100%", height: "23vh" }}
+      >
+        <GithubCalendar
+          username={github}
+          color="hsl(203, 82%, 33%)"
+          fontSize={12}
+        >
+          <ReactTooltip delayShow={50} html />
+        </GithubCalendar>
       </TabPanel>
-      <TabPanel header="Calendar" leftIcon="pi pi-calendar">
+      <TabPanel header="Book Tracking" leftIcon="pi pi-calendar">
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam iure
         labore quasi maxime enim fugiat eligendi quidem illo laborum. Sed
         quibusdam ullam ex. Aspernatur nulla autem maiores, impedit pariatur
         labore!
       </TabPanel>
-      <TabPanel header="Weekly Tasks" leftIcon="pi pi-list">
+      <TabPanel header="Financial Management" leftIcon="pi pi-list">
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam iure
         labore quasi maxime enim fugiat eligendi quidem illo laborum. Sed
         quibusdam ullam ex. Aspernatur nulla autem maiores, impedit pariatur

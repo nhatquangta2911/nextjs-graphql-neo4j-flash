@@ -8,7 +8,6 @@ export const PageWrapper = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
-  background-color: #f9f9f9;
   position: relative;
   padding: 0 2vw;
   justify-content: space-between;
@@ -27,7 +26,6 @@ export const HeaderSection = styled(Row)`
   min-height: 8vh;
   position: absolute;
   top: 0;
-  background-color: #f4f4f4;
   border-radius: 7px;
   padding: 2px 0;
   justify-content: space-between;
@@ -36,7 +34,6 @@ export const HeaderSection = styled(Row)`
 export const FooterSection = styled(Row)`
   width: 100%;
   min-height: 8vh;
-  background-color: #f4f4f4;
   height: 8vh;
   position: absolute;
   bottom: 0;
@@ -55,24 +52,30 @@ export const ContentSection = styled(Row)`
 
   @media (max-width: 900px) {
     flex-direction: column;
+    justify-content: center;
   }
 `;
 
 export const LeftContentSection = styled(Column)`
-  width: 68vw;
-  height: 100%;
+  width: 65%;
+  height: 90%;
   justify-content: flex-start;
-  background-color: #f4f4f4;
   border-radius: 7px;
   margin-right: 1vw;
+
+  @media (max-width: 900px) {
+    display: none;
+  }
 `;
 
 export const RightContentSection = styled(Column)`
-  width: 28vw;
-  height: 100%;
-  background-color: #f4f4f4;
+  width: 30%;
+  height: 90%;
   border-radius: 7px;
-  justify-content: space-between;
+  justify-content: flex-start;
+  @media (max-width: 900px) {
+    width: 90%;
+  }
 `;
 
 export const UpperLeftContentSection = styled(Row)`

@@ -12,7 +12,14 @@ export interface IActionUpdateNewestTask {
   newestTask: string;
 }
 
+export interface IActionUpdateStats {
+  type: "UPDATE_STATS";
+  total: number;
+  completed: number;
+}
+
 export type IActionPageTracking =
   | IActionDisplayDialog
   | IActionHideDialog
-  | IActionUpdateNewestTask;
+  | IActionUpdateNewestTask
+  | IActionUpdateStats;

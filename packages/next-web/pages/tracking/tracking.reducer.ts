@@ -6,6 +6,8 @@ export interface IPageTrackingState {
     dialogContent: string;
   };
   newestTask: string;
+  total: number;
+  completed: number;
 }
 
 const initialState: IPageTrackingState = {
@@ -14,6 +16,8 @@ const initialState: IPageTrackingState = {
     dialogContent: "",
   },
   newestTask: "Not updated",
+  total: 0,
+  completed: 0,
 };
 
 export const pageTrackingReducer = (
@@ -41,6 +45,12 @@ export const pageTrackingReducer = (
       return {
         ...state,
         newestTask: action.newestTask,
+      };
+    case "UPDATE_STATS":
+      return {
+        ...state,
+        total: action.total,
+        completed: action.completed,
       };
     default:
       return state;

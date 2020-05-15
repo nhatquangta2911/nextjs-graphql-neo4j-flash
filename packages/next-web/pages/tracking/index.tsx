@@ -5,7 +5,6 @@ import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import { withApollo } from "../../helper/apollo";
 import { useQuery } from "@apollo/react-hooks";
-import moment from "moment";
 import {
   PageWrapper,
   HeaderSection,
@@ -15,7 +14,6 @@ import {
   RightContentSection,
   UpperLeftContentSection,
   LowerLeftContentSection,
-  NewestTaskSection,
 } from "styled/pages.style";
 import {
   Tracking as TrackingContainer,
@@ -27,9 +25,7 @@ import { GET_USER_INFO } from "graphql/query/task.query";
 import { getWeekNo } from "helper/dateTime";
 import { IPageTrackingState } from "./tracking.reducer";
 import { IActionPageTracking } from "./tracking.action";
-import { StoreRootState } from "reducers/rootReducer";
-import { Column, Row, CenteredRow } from "styled/global.style";
-import { HeaderTask } from "components";
+import { HeaderTask, SocialNetwork, Quote } from "components";
 
 export interface IPageOwnProps {
   dialog: {
@@ -43,23 +39,19 @@ export interface IPageOwnState {
   user: User;
 }
 
-const TrackingPage: React.FC<IPageOwnProps> = ({
-  dialog,
-  hideDialog,
-  newestTask,
-}) => {
-  const [username, setUsername] = useState("");
-  const today = moment();
-  const currentDateTime = today.format("MMMM Do YYYY, h:mm:ss a");
+const TrackingPage: React.FC<IPageOwnProps> = ({ dialog, hideDialog }) => {
+  const [, setUsername] = useState("");
   useEffect(() => {
     setUsername(localStorage.getItem("username"));
   });
-  const { data, error } = useQuery(GET_USER_INFO, {
+  const { data } = useQuery(GET_USER_INFO, {
     variables: { name: "Shawn" },
   });
   const user = data?.User[0];
   // const weekNo = user?.taskList[0]?.weekNo;
   const weekNo = getWeekNo() || user?.taskList[0]?.weekNo;
+  const total = user?.taskList[1]?.total;
+  const completed = user?.taskList[1]?.completed;
   return (
     <>
       <Head>
@@ -78,17 +70,19 @@ const TrackingPage: React.FC<IPageOwnProps> = ({
             <UpperLeftContentSection>
               <TrackingContainer github={user?.github} />
             </UpperLeftContentSection>
-            <LowerLeftContentSection>
-              <TrackingContainer github={user?.github} />
-            </LowerLeftContentSection>
+            <LowerLeftContentSection>update soon...</LowerLeftContentSection>
           </LeftContentSection>
           <RightContentSection>
-            <TaskListContainer weekNo={weekNo} />
+            <TaskListContainer
+              weekNo={weekNo}
+              total={total}
+              completed={completed}
+            />
           </RightContentSection>
         </ContentSection>
         <FooterSection>
-          <p>take every little step ^^</p>
-          <p>{currentDateTime}</p>
+          <Quote />
+          <SocialNetwork />
         </FooterSection>
         <Dialog
           header="Congrats, keep going!"
