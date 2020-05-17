@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 import { Bounce } from 'react-awesome-reveal';
 import { NewestTaskSection } from 'styled/pages.style';
 import { CenteredRow } from 'styled/global.style';
 import { IPageTrackingState } from 'pages/tracking/tracking.reducer';
 import { CenteredRowTitle } from '../../styled/global.style';
+import { IActionPageTracking } from '../../pages/tracking/tracking.action';
 
-interface HeaderTaskProps {
-  newestTask: string;
-}
+interface HeaderTaskProps {}
 
-const HeaderTask: React.FC<HeaderTaskProps> = ({ newestTask }) => {
+const HeaderTask: React.FC<HeaderTaskProps> = () => {
+  const newestTask: string = useSelector(
+    (state: IPageTrackingState) => state?.newestTask
+  );
   return (
     <>
       <Bounce delay={8000} duration={2000} triggerOnce={false}>
@@ -23,8 +25,4 @@ const HeaderTask: React.FC<HeaderTaskProps> = ({ newestTask }) => {
   );
 };
 
-const mapStateToProps = (state: IPageTrackingState) => ({
-  newestTask: state?.newestTask,
-});
-
-export default connect(mapStateToProps)(HeaderTask);
+export default HeaderTask;

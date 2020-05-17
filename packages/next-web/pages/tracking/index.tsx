@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import Head from 'next/head';
-import { connect } from 'react-redux';
+import { connect, useSelector, useDispatch } from 'react-redux';
 import { Dispatch } from 'redux';
 import { withApollo } from '../../helper/apollo';
 import { useQuery } from '@apollo/react-hooks';
@@ -27,20 +27,18 @@ import { IPageTrackingState } from './tracking.reducer';
 import { IActionPageTracking } from './tracking.action';
 import { HeaderTask, SocialNetwork, Quote } from 'components';
 
-export interface IPageOwnProps {
-  dialog: {
-    dialogVisible: boolean;
-    dialogContent: string;
-  };
-  hideDialog(): void;
-  newestTask: string;
-}
+export interface IPageOwnProps {}
 export interface IPageOwnState {
   user: User;
 }
 
-const TrackingPage: React.FC<IPageOwnProps> = ({ dialog, hideDialog }) => {
+const TrackingPage: React.FC<IPageOwnProps> = () => {
   const [username, setUsername] = useState('');
+  const dialog = useSelector((state) => state?.dialog);
+  const dispatch = useDispatch();
+  const hideDialog = useCallback(() => dispatch({ type: 'HIDE_DIALOG' }), [
+    dispatch,
+  ]);
   useEffect(() => {
     setUsername(localStorage.getItem('username'));
   });
@@ -48,7 +46,6 @@ const TrackingPage: React.FC<IPageOwnProps> = ({ dialog, hideDialog }) => {
     variables: { name: 'Shawn' },
   });
   const user = data?.User[0];
-  // const weekNo = user?.taskList[0]?.weekNo;
   const weekNo = getWeekNo() || user?.taskList[0]?.weekNo;
   const total = user?.taskList[1]?.total;
   const completed = user?.taskList[1]?.completed;
@@ -61,7 +58,7 @@ const TrackingPage: React.FC<IPageOwnProps> = ({ dialog, hideDialog }) => {
         <HeaderSection>
           <p>hi {user?.name}</p>
           <HeaderTask />
-          <Link href='/'>
+          <Link href='/' shallow={true}>
             <a>back</a>
           </Link>
         </HeaderSection>
@@ -100,20 +97,4 @@ const TrackingPage: React.FC<IPageOwnProps> = ({ dialog, hideDialog }) => {
   );
 };
 
-const mapStateToProps = (state: IPageTrackingState) => ({
-  dialog: state?.dialog,
-  newestTask: state?.newestTask,
-});
-
-const mapDispatchToProps = (dispatch: Dispatch<IActionPageTracking>) => ({
-  hideDialog: () => {
-    dispatch({
-      type: 'HIDE_DIALOG',
-    });
-  },
-});
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(withApollo(TrackingPage));
+export default withApollo(TrackingPage);

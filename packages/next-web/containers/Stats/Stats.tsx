@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 import { ResponsivePie } from '@nivo/pie';
 import { IPageTrackingState } from 'pages/tracking/tracking.reducer';
 import { StatsWrapper } from './Stats.style';
@@ -7,11 +7,15 @@ import { Bounce } from 'react-awesome-reveal';
 
 type StatsProps = {
   weekNo: string;
-  total: number;
-  completed: number;
 };
 
-const Stats: React.FC<StatsProps> = ({ weekNo, total, completed }) => {
+const Stats: React.FC<StatsProps> = ({ weekNo }) => {
+  const total: number = useSelector(
+    (state: IPageTrackingState) => state?.total
+  );
+  const completed: number = useSelector(
+    (state: IPageTrackingState) => state?.completed
+  );
   const data = [
     {
       id: 'Doing',
@@ -87,9 +91,4 @@ const Stats: React.FC<StatsProps> = ({ weekNo, total, completed }) => {
   );
 };
 
-const mapStateToProps = (state: IPageTrackingState) => ({
-  total: state?.total,
-  completed: state?.completed,
-});
-
-export default connect(mapStateToProps)(Stats);
+export default Stats;

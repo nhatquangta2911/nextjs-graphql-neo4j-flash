@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { connect } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/dist/client/router';
@@ -11,16 +11,16 @@ import {
 } from 'styled/pages.style';
 import { IPageTrackingState } from './tracking/tracking.reducer';
 
-interface MainPageProps {
-  newestTask: string;
-}
+interface MainPageProps {}
 
-const Index: React.FC<MainPageProps> = ({ newestTask }) => {
+const Index: React.FC<MainPageProps> = () => {
   const [username, setUsername] = useState('');
+  const newestTask: string = useSelector(
+    (state: IPageTrackingState) => state?.newestTask
+  );
   React.useEffect(() => {
     setUsername(localStorage.getItem('username'));
   });
-  console.log(newestTask);
   return (
     <>
       <Head>
@@ -52,8 +52,4 @@ const Index: React.FC<MainPageProps> = ({ newestTask }) => {
   );
 };
 
-const mapStateToProps = (state: IPageTrackingState) => ({
-  newestTask: state.newestTask,
-});
-
-export default connect(mapStateToProps)(Index);
+export default Index;

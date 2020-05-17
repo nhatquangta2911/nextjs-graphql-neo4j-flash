@@ -1,5 +1,5 @@
-import React, { useState, useEffect, Dispatch } from 'react';
-import { connect } from 'react-redux';
+import React, { useState, useEffect, useCallback } from 'react';
+import { useDispatch } from 'react-redux';
 import { useMutation, useQuery } from '@apollo/react-hooks';
 import { TabView, TabPanel } from 'primereact/tabview';
 import { ScrollPanel } from 'primereact/scrollpanel';
@@ -7,7 +7,7 @@ import { InputText } from 'primereact/inputtext';
 import { Checkbox } from 'primereact/checkbox';
 import { Container, Draggable } from 'react-smooth-dnd';
 import { GET_TASKS_BY_WEEKNO } from '../../graphql/query/task.query';
-import { Task, TaskList as TaskListType, User } from '../../types';
+import { Task } from '../../types';
 import {
   ADD_TASK,
   ADD_TASK_INTO_WEEKLY_TASKLIST,
@@ -20,32 +20,42 @@ import {
   TaskItemControl,
 } from './TaskItem/TaskItem.style';
 import { Button } from 'primereact/button';
-import { Slide, Bounce } from 'react-awesome-reveal';
+import { Bounce } from 'react-awesome-reveal';
 import { UPDATE_TASK_STATUS } from '../../graphql/mutation/task.mutation';
 import { applyDrag } from 'helper/dnd';
-import { IPageTrackingState } from 'pages/tracking/tracking.reducer';
-import { IActionPageTracking } from 'pages/tracking/tracking.action';
 import Stats from 'containers/Stats';
 
 type TaskListProps = {
   weekNo: string;
   total: number;
   completed: number;
-  displayDialog(title: string): void;
-  updateNewestTask(title: string): void;
-  updateStats(total: number, completed: number): void;
 };
 
-const TaskList: React.FC<TaskListProps> = ({
-  weekNo,
-  total,
-  completed,
-  displayDialog,
-  updateNewestTask,
-  updateStats,
-}) => {
+const TaskList: React.FC<TaskListProps> = ({ weekNo, total, completed }) => {
   const [newTask, setNewTask] = useState('');
   const [newTaskPrimary, setNewTaskPrimary] = useState(false);
+  const dispatch = useDispatch();
+  const displayDialog = useCallback(
+    (title: string) => dispatch({ type: 'DISPLAY_DIALOG', title }),
+    [dispatch]
+  );
+  const updateNewestTask = useCallback(
+    (title: string) =>
+      dispatch({
+        type: 'UPDATE_NEWEST_TASK',
+        newestTask: title,
+      }),
+    [dispatch]
+  );
+  const updateStats = useCallback(
+    (total: number, completed: number) =>
+      dispatch({
+        type: 'UPDATE_STATS',
+        total,
+        completed,
+      }),
+    [dispatch]
+  );
 
   const [addTask] = useMutation(ADD_TASK);
   const [updateTaskStatus] = useMutation(UPDATE_TASK_STATUS);
@@ -194,32 +204,10 @@ const TaskList: React.FC<TaskListProps> = ({
         </ScrollPanel>
       </TabPanel>
       <TabPanel header='Stats' leftIcon='pi pi-chart-bar'>
-        <Stats weekNo={weekNo} total={total} completed={completed} />
+        <Stats weekNo={weekNo} />
       </TabPanel>
     </TabView>
   );
 };
 
-const mapDispatchToProps = (dispatch: Dispatch<IActionPageTracking>) => ({
-  displayDialog: (title: string) => {
-    dispatch({
-      type: 'DISPLAY_DIALOG',
-      title,
-    });
-  },
-  updateNewestTask: (title: string) => {
-    dispatch({
-      type: 'UPDATE_NEWEST_TASK',
-      newestTask: title,
-    });
-  },
-  updateStats: (total: number, completed: number) => {
-    dispatch({
-      type: 'UPDATE_STATS',
-      total,
-      completed,
-    });
-  },
-});
-
-export default connect<IPageTrackingState>(null, mapDispatchToProps)(TaskList);
+export default TaskList;

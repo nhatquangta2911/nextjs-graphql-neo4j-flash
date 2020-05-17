@@ -1,15 +1,13 @@
 import React, { useState } from 'react';
-import { connect } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 import Link from 'next/link';
 import { StudyWrapper, NavigateSection, ContentSection } from './Study.style';
 import { IPageTrackingState } from '../tracking/tracking.reducer';
 
-type StudyHooksPageProps = {
-  total: number;
-};
+type StudyHooksPageProps = {};
 
-const StudyHooksPage: React.FC<StudyHooksPageProps> = ({ total }) => {
-  // const total: number = useSelector((state) => state.total);
+const StudyHooksPage: React.FC<StudyHooksPageProps> = () => {
+  const total: number = useSelector((state) => state.total);
   return (
     <StudyWrapper>
       <ContentSection>
@@ -25,8 +23,4 @@ const StudyHooksPage: React.FC<StudyHooksPageProps> = ({ total }) => {
   );
 };
 
-const mapStateToProps = (state: IPageTrackingState) => ({
-  total: state.total,
-});
-
-export default connect(mapStateToProps)(StudyHooksPage);
+export default StudyHooksPage;
