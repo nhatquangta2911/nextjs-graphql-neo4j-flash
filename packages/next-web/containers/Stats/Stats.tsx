@@ -14,13 +14,13 @@ type StatsProps = {
 const Stats: React.FC<StatsProps> = ({ weekNo, total, completed }) => {
   const data = [
     {
-      id: 'not-completed',
+      id: 'Doing',
       label: 'Not completed',
       value: total - completed,
       color: '#f4f4f4',
     },
     {
-      id: 'completed',
+      id: 'Done',
       label: 'Completed',
       value: completed,
       color: '#2270a1',
@@ -36,7 +36,7 @@ const Stats: React.FC<StatsProps> = ({ weekNo, total, completed }) => {
         <StatsWrapper>
           <ResponsivePie
             data={data}
-            margin={{ top: 20, right: 10, bottom: 20, left: 10 }}
+            margin={{ top: 30, right: 50, bottom: 30, left: 50 }}
             innerRadius={0.6}
             padAngle={0.7}
             cornerRadius={3}
