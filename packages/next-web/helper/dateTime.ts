@@ -10,7 +10,7 @@ export interface WeekInfo {
 export const getWeekNo = (): string => {
   const thisYear = new Date().getFullYear();
   // const thisWeek = currentWeek.getWeekNumber();
-  const thisWeek = 20;
+  const thisWeek = 21;
   return thisYear + thisWeek.toString();
 };
 

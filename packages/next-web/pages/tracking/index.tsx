@@ -47,8 +47,8 @@ const TrackingPage: React.FC<IPageOwnProps> = () => {
   });
   const user = data?.User[0];
   const weekNo = getWeekNo() || user?.taskList[0]?.weekNo;
-  const total = user?.taskList[1]?.total;
-  const completed = user?.taskList[1]?.completed;
+  const total = user?.taskList[0]?.total;
+  const completed = user?.taskList[0]?.completed;
   return (
     <>
       <Head>
