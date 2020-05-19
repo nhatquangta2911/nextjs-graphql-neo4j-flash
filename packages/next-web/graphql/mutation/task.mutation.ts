@@ -1,4 +1,4 @@
-import gql from 'graphql-tag';
+import gql from "graphql-tag";
 
 export const ADD_TASK = gql`
   mutation addTask($title: String!, $status: String!, $primary: Boolean!) {

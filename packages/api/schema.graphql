@@ -11,12 +11,23 @@ type TaskList {
   tasks: [Task] @relation(name: "CONTAINS", direction: "OUT")
 }
 
+type Book {
+  title: String!
+  pages: Int
+  startDate: Date
+  finishDate: Date
+  status: String
+  completedPages: Int
+  coverImage: String
+}
+
 type User {
   name: String!
   email: String!
   github: String
   password: String!
   taskList: [TaskList] @relation(name: "HAS", direction: "OUT")
+  books: [Book] @relation(name: "READ", direction: "OUT")
 }
 
 type Contains @relation(name: "CONTAINS") {
