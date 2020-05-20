@@ -11,7 +11,7 @@ import {
 } from "./Bookshelf.style";
 import { DialogFooterWrapper } from "components/DialogFooter/DialogFooter.style";
 import { AddBookDialog } from "components";
-import { Books } from "containers";
+import { BookCarousel } from "containers";
 
 type BookshelfProps = {};
 
@@ -48,7 +48,7 @@ const Bookshelf: React.FC<BookshelfProps> = () => {
         </AddBookSection>
       </BookshelfHeader>
       <BookshelfContent>
-        <Books />
+        <BookCarousel />
       </BookshelfContent>
       <Dialog
         header="Add book"

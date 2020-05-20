@@ -26,13 +26,26 @@ const Book: React.FC<BookProps> = ({ book }) => {
         </BookCardImage>
       </BookCardContent>
       <BookCardControl>
-        Status: {book?.completedPages} / {book?.pages} pages
-        <Button
-          label="Update"
-          icon="pi pi-pencil"
-          style={{ marginTop: "0.5vh", fontSize: "0.9em" }}
-          className="p-button-secondary"
-        />
+        {book?.status !== "Reading" && (
+          <Button
+            label="Done"
+            icon="pi pi-check"
+            style={{ marginTop: "0.5vh", fontSize: "0.9em" }}
+            className="p-button-success"
+            disabled={true}
+          />
+        )}
+        {book?.status === "Reading" && (
+          <>
+            Status: {book?.completedPages} / {book?.pages} pages
+            <Button
+              label="Update"
+              icon="pi pi-pencil"
+              style={{ marginTop: "0.5vh", fontSize: "0.9em" }}
+              className="p-button-secondary"
+            />
+          </>
+        )}
       </BookCardControl>
     </BookWrapper>
   );

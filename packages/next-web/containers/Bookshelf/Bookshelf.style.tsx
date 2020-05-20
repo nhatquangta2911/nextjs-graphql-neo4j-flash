@@ -19,7 +19,7 @@ export const BookshelfHeader = styled(Row)`
 export const BookshelfContent = styled(Row)`
   height: 85%;
   justify-content: center;
-  padding: 1vh 0 0;
+  padding: 0.5vh 0 -0.5vh;
 `;
 
 export const BookshelfTitle = styled(Column)`
