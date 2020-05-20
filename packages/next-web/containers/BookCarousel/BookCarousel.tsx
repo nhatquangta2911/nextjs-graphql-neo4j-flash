@@ -11,7 +11,7 @@ type BooksProps = {};
 
 const BookCarousel: React.FC<BooksProps> = () => {
   const { data, loading, error, refetch } = useQuery(GET_BOOKS, {
-    variables: { name: "Shawn", first: 4 },
+    variables: { name: "Shawn", first: 10 },
   });
   const books = data?.User[0]?.books;
   const bookTemplate = (book: BookType) => <Book book={book} />;
@@ -23,7 +23,7 @@ const BookCarousel: React.FC<BooksProps> = () => {
           style={{ width: "100%", height: "100%" }}
           value={books}
           itemTemplate={bookTemplate}
-          numVisible={books?.length || 0}
+          numVisible={4}
           numScroll={1}
         ></Carousel>
       )}

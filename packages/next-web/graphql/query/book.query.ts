@@ -7,6 +7,7 @@ export const GET_BOOKS = gql`
         _id
         title
         pages
+        status
         completedPages
         coverImage
         startDate {

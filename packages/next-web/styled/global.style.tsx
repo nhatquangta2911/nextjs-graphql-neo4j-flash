@@ -1,4 +1,4 @@
-import styled, { createGlobalStyle } from 'styled-components';
+import styled, { createGlobalStyle } from "styled-components";
 
 export const Row = styled.div`
   display: flex;
@@ -60,5 +60,9 @@ export const GlobalStyle = createGlobalStyle`
   a{
     text-decoration: none;
   }
+
+  .k-animation-container {
+    z-index: 10003 
+}
 
 `;

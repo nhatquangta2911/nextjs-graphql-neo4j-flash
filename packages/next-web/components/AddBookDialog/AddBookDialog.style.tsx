@@ -3,4 +3,7 @@ import { Column } from "styled/global.style";
 
 export const AddBookDialogWrapper = styled(Column)`
   justify-content: space-between;
+  & .k-animation-container {
+    z-index: 10003;
+  }
 `;
