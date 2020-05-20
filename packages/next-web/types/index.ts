@@ -21,6 +21,24 @@ export interface Task {
   primary: Boolean;
 }
 
+export interface FormattedDate {
+  day: number;
+  month: number;
+  year: number;
+  formatted: string;
+}
+
+export interface Book {
+  _id: string;
+  title: string;
+  pages: number;
+  completedPages: number;
+  startDate: FormattedDate;
+  finishDate: FormattedDate;
+  status: string;
+  coverImage: string;
+}
+
 export interface Post {
   id: number;
   title: string;

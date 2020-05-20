@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import Head from "next/head";
-import { connect, useSelector, useDispatch } from "react-redux";
-import { Dispatch } from "redux";
+import { useSelector, useDispatch } from "react-redux";
 import { withApollo } from "../../helper/apollo";
 import { useQuery } from "@apollo/react-hooks";
 import {
@@ -24,8 +23,6 @@ import { Dialog } from "primereact/dialog";
 import { User } from "../../types";
 import { GET_USER_INFO } from "graphql/query/task.query";
 import { getWeekNo } from "helper/dateTime";
-import { IPageTrackingState } from "./tracking.reducer";
-import { IActionPageTracking } from "./tracking.action";
 import { HeaderTask, SocialNetwork, Quote } from "components";
 
 export interface IPageOwnProps {}
@@ -41,10 +38,10 @@ const TrackingPage: React.FC<IPageOwnProps> = () => {
     dispatch,
   ]);
   useEffect(() => {
-    setUsername(localStorage.getItem("username"));
+    setUsername(localStorage.getItem("username") || "Shawn");
   });
   const { data } = useQuery(GET_USER_INFO, {
-    variables: { name: "Shawn" },
+    variables: { name: username },
   });
   const user = data?.User[0];
   const weekNo = getWeekNo() || user?.taskList[0]?.weekNo;

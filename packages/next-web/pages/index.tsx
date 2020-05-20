@@ -1,25 +1,25 @@
-import React, { useState } from 'react';
-import { connect, useSelector } from 'react-redux';
-import Head from 'next/head';
-import Link from 'next/link';
-import { useRouter } from 'next/dist/client/router';
+import React, { useState } from "react";
+import { connect, useSelector } from "react-redux";
+import Head from "next/head";
+import Link from "next/link";
+import { useRouter } from "next/dist/client/router";
 import {
   PageWrapper,
   HomeRouteSection,
   NavigateRouteSection,
   ContentRouteSection,
-} from 'styled/pages.style';
-import { IPageTrackingState } from './tracking/tracking.reducer';
+} from "styled/pages.style";
+import { IPageTrackingState } from "./tracking/tracking.reducer";
 
 interface MainPageProps {}
 
 const Index: React.FC<MainPageProps> = () => {
-  const [username, setUsername] = useState('');
+  const [username, setUsername] = useState("");
   const newestTask: string = useSelector(
     (state: IPageTrackingState) => state?.newestTask
   );
   React.useEffect(() => {
-    setUsername(localStorage.getItem('username'));
+    setUsername(localStorage.getItem("username") || "Shawn");
   });
   return (
     <>
@@ -37,13 +37,13 @@ const Index: React.FC<MainPageProps> = () => {
           </p>
         </ContentRouteSection>
         <NavigateRouteSection>
-          <Link href='/tracking'>
+          <Link href="/tracking">
             <a>tracking</a>
           </Link>
-          <Link href='/study'>
+          <Link href="/study">
             <a>study</a>
           </Link>
-          <Link href='/about'>
+          <Link href="/about">
             <a>about me</a>
           </Link>
         </NavigateRouteSection>

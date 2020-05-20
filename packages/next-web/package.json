@@ -23,6 +23,7 @@
     "apollo-client": "^2.6.8",
     "apollo-link-http": "^1.5.17",
     "classnames": "^2.2.6",
+    "cogo-toast": "^4.2.3",
     "graphql": "^15.0.0",
     "graphql-tag": "^2.10.3",
     "install": "^0.13.0",

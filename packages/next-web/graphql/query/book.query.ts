@@ -6,6 +6,8 @@ export const GET_BOOKS = gql`
       books(first: $first) {
         _id
         title
+        pages
+        completedPages
         coverImage
         startDate {
           formatted
