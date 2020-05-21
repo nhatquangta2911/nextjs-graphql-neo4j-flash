@@ -12,6 +12,7 @@ import { Input, Button } from 'semantic-ui-react';
 import { Upload } from '@progress/kendo-react-upload';
 import cogoToast from 'cogo-toast';
 import { useMutation } from '@apollo/react-hooks';
+import { PROFILE_PAGE } from '../../constants/navigation';
 import {
   ADD_BOOK,
   ADD_BOOK_INTO_USER_SHELF,
@@ -20,7 +21,7 @@ import {
 type AddBookDialogProps = {};
 
 const AddBookDialog: React.FC<AddBookDialogProps> = () => {
-  const [pages, setPages] = useState(0);
+  const [pages, setPages] = useState(200);
   const [title, setTitle] = useState('');
   const [day, setDay] = useState(1);
   const [month, setMonth] = useState(1);
@@ -73,24 +74,34 @@ const AddBookDialog: React.FC<AddBookDialogProps> = () => {
     <AddBookDialogWrapper>
       <AddBookDialogItem>
         <Input
-          placeholder='Once upon the time'
+          placeholder={title?.trim() === '' && 'title is required'}
           label='Title'
+          name='titleField'
           value={title}
           style={{ width: '100%' }}
           size='small'
-          onChange={(event) => setTitle(event.target.value)}
+          error={title === ''}
+          onChange={(event) => {
+            event.target.value.trim()?.length >= 0 &&
+              setTitle(event.target.value);
+          }}
         />
       </AddBookDialogItem>
       <AddBookDialogItem>
         <Input
+          placeholder={pages <= 0 && 'page number must be greater than 0'}
           size='small'
           style={{ width: '100%' }}
           type='number'
+          name='pages'
           label='Total Pages'
           value={pages}
-          onChange={(event) =>
-            setPages(event.target.value !== '' && parseInt(event.target.value))
-          }
+          error={pages <= 0}
+          onChange={(event) => {
+            event.target.value.trim() !== ''
+              ? setPages(parseInt(event.target.value))
+              : setPages(0);
+          }}
         />
       </AddBookDialogItem>
       <AddBookDialogItem>
@@ -112,7 +123,11 @@ const AddBookDialog: React.FC<AddBookDialogProps> = () => {
           <Upload />
         </AddBookDialogItemLabel>
       </AddBookDialogItem>
-      <Button color='blue' onClick={handleSubmit}>
+      <Button
+        color='blue'
+        onClick={handleSubmit}
+        disabled={title === '' || pages <= 0}
+      >
         Add book
       </Button>
     </AddBookDialogWrapper>
