@@ -64,10 +64,10 @@ const TrackingPage: React.FC<IPageOwnProps> = () => {
         <ContentSection>
           <LeftContentSection>
             <UpperLeftContentSection>
-              <TrackingContainer github={user?.github} />
+              <Bookshelf />
             </UpperLeftContentSection>
             <LowerLeftContentSection>
-              <Bookshelf />
+              <TrackingContainer github={user?.github} />
             </LowerLeftContentSection>
           </LeftContentSection>
           <RightContentSection>

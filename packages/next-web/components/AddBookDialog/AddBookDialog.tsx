@@ -23,6 +23,7 @@ type AddBookDialogProps = {};
 const AddBookDialog: React.FC<AddBookDialogProps> = () => {
   const [pages, setPages] = useState(200);
   const [title, setTitle] = useState('');
+  const [file, setFile] = useState({} as any);
   const [day, setDay] = useState(1);
   const [month, setMonth] = useState(1);
   const [year, setYear] = useState(2020);
@@ -70,6 +71,8 @@ const AddBookDialog: React.FC<AddBookDialogProps> = () => {
       cogoToast.error(error.message);
     }
   };
+
+  console.log(file);
   return (
     <AddBookDialogWrapper>
       <AddBookDialogItem>
@@ -120,7 +123,11 @@ const AddBookDialog: React.FC<AddBookDialogProps> = () => {
         </AddBookDialogItemLabel>
         <AddBookDialogItemLabel>
           <AddBookDialogItemText large>Cover Image</AddBookDialogItemText>
-          <Upload />
+          <input
+            type='file'
+            accept='image/*'
+            onChange={(event) => setFile(event.target.value)}
+          />
         </AddBookDialogItemLabel>
       </AddBookDialogItem>
       <Button
