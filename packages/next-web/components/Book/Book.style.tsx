@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import { Column, Row } from "styled/global.style";
+import styled from 'styled-components';
+import { Column, Row } from 'styled/global.style';
 
 export const BookWrapper = styled(Column)`
   align-items: flex-start;
@@ -20,7 +20,7 @@ export const BookCardHeader = styled(Row)`
 `;
 
 export const BookCardContent = styled(Row)`
-  height: 60%;
+  height: 55%;
   margin: 1vh 0;
   justify-content: center;
 `;
@@ -30,7 +30,7 @@ export const BookCardImage = styled(Row)`
 `;
 
 export const BookCardControl = styled(Column)`
-  height: 15%;
+  height: 20%;
   align-items: center;
   font-size: 0.8em;
 `;

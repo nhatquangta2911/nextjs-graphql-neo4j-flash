@@ -1,15 +1,15 @@
-import React from "react";
-import { useQuery, useMutation } from "@apollo/react-hooks";
-import { ScrollPanel } from "primereact/scrollpanel";
-import { Task } from "../../../types/index";
-import withApollo from "../../../pages/tracking";
-import { useSpring, animated } from "react-spring";
+import React from 'react';
+import { useQuery, useMutation } from '@apollo/react-hooks';
+import { ScrollPanel } from 'primereact/scrollpanel';
+import { Task } from '../../../types/index';
+import withApollo from '../../../pages/tracking';
+import { useSpring, animated } from 'react-spring';
 import {
   TaskItemWrapper,
   TaskItemContent,
   TaskItemControl,
   TaskItemPrimary,
-} from "./TaskItem.style";
+} from './TaskItem.style';
 
 export interface TaskItemProps {
   task: string;
@@ -18,7 +18,7 @@ export interface TaskItemProps {
 const TaskItem: React.FC<TaskItemProps> = ({ task }) => {
   return (
     <TaskItemWrapper>
-      <TaskItemPrimary>1</TaskItemPrimary>
+      <TaskItemPrimary />
       <TaskItemContent>{task}</TaskItemContent>
       <TaskItemControl>OK</TaskItemControl>
     </TaskItemWrapper>

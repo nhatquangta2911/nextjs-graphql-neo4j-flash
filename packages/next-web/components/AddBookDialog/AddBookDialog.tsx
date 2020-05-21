@@ -1,34 +1,38 @@
-import React, { useState, useCallback } from "react";
-import { useDispatch } from "react-redux";
-import { useForm, Controller } from "react-hook-form";
-import { DatePicker } from "@progress/kendo-react-dateinputs";
+import React, { useState, useCallback } from 'react';
+import { useDispatch } from 'react-redux';
+import { useForm, Controller } from 'react-hook-form';
+import { DatePicker } from '@progress/kendo-react-dateinputs';
 import {
   AddBookDialogWrapper,
   AddBookDialogItem,
   AddBookDialogItemLabel,
   AddBookDialogItemText,
-} from "./AddBookDialog.style";
-import { Input, Button } from "semantic-ui-react";
-import { Upload } from "@progress/kendo-react-upload";
-import cogoToast from "cogo-toast";
-import { useMutation } from "@apollo/react-hooks";
+} from './AddBookDialog.style';
+import { Input, Button } from 'semantic-ui-react';
+import { Upload } from '@progress/kendo-react-upload';
+import cogoToast from 'cogo-toast';
+import { useMutation } from '@apollo/react-hooks';
 import {
   ADD_BOOK,
   ADD_BOOK_INTO_USER_SHELF,
-} from "graphql/mutation/book.mutation";
+} from 'graphql/mutation/book.mutation';
 
 type AddBookDialogProps = {};
 
 const AddBookDialog: React.FC<AddBookDialogProps> = () => {
   const [pages, setPages] = useState(0);
-  const [title, setTitle] = useState("");
+  const [title, setTitle] = useState('');
   const [day, setDay] = useState(1);
   const [month, setMonth] = useState(1);
   const [year, setYear] = useState(2020);
 
   const dispatch = useDispatch();
   const hideAddButtonDialog = useCallback(
-    () => dispatch({ type: "HIDE_ADD_BOOK_DIALOG" }),
+    () => dispatch({ type: 'HIDE_ADD_BOOK_DIALOG' }),
+    [dispatch]
+  );
+  const triggerRefetch = useCallback(
+    () => dispatch({ type: 'TRIGGER_REFETCH' }),
     [dispatch]
   );
   const [addBook] = useMutation(ADD_BOOK);
@@ -36,7 +40,7 @@ const AddBookDialog: React.FC<AddBookDialogProps> = () => {
 
   const handleSubmit = async () => {
     try {
-      const username = localStorage.getItem("username") || "Shawn";
+      const username = localStorage.getItem('username') || 'Shawn';
       await addBook({
         variables: {
           title,
@@ -47,7 +51,7 @@ const AddBookDialog: React.FC<AddBookDialogProps> = () => {
             year,
           },
           coverImage:
-            "https://hazlitt.net/sites/default/files/default-book.png",
+            'https://hazlitt.net/sites/default/files/default-book.png',
         },
       });
       await addBookIntoUserBookshelf({
@@ -57,9 +61,10 @@ const AddBookDialog: React.FC<AddBookDialogProps> = () => {
         },
       });
       setPages(0);
-      setTitle("");
+      setTitle('');
       hideAddButtonDialog();
-      cogoToast.success("Book added");
+      triggerRefetch();
+      cogoToast.success('Book added');
     } catch (error) {
       cogoToast.error(error.message);
     }
@@ -68,23 +73,23 @@ const AddBookDialog: React.FC<AddBookDialogProps> = () => {
     <AddBookDialogWrapper>
       <AddBookDialogItem>
         <Input
-          placeholder="Once upon the time"
-          label="Title"
+          placeholder='Once upon the time'
+          label='Title'
           value={title}
-          style={{ width: "100%" }}
-          size="small"
+          style={{ width: '100%' }}
+          size='small'
           onChange={(event) => setTitle(event.target.value)}
         />
       </AddBookDialogItem>
       <AddBookDialogItem>
         <Input
-          size="small"
-          style={{ width: "100%" }}
-          type="number"
-          label="Total Pages"
+          size='small'
+          style={{ width: '100%' }}
+          type='number'
+          label='Total Pages'
           value={pages}
           onChange={(event) =>
-            setPages(event.target.value !== "" && parseInt(event.target.value))
+            setPages(event.target.value !== '' && parseInt(event.target.value))
           }
         />
       </AddBookDialogItem>
@@ -93,7 +98,7 @@ const AddBookDialog: React.FC<AddBookDialogProps> = () => {
           <AddBookDialogItemText>Start reading at</AddBookDialogItemText>
           <DatePicker
             defaultValue={new Date()}
-            format="yyyy-MM-dd"
+            format='yyyy-MM-dd'
             onChange={(event) => {
               const date = event.target.value;
               setDay(date.getDate());
@@ -103,15 +108,13 @@ const AddBookDialog: React.FC<AddBookDialogProps> = () => {
           />
         </AddBookDialogItemLabel>
         <AddBookDialogItemLabel>
-          <AddBookDialogItemText>Cover Image</AddBookDialogItemText>
+          <AddBookDialogItemText large>Cover Image</AddBookDialogItemText>
           <Upload />
         </AddBookDialogItemLabel>
       </AddBookDialogItem>
-      <AddBookDialogItem>
-        <Button color="blue" onClick={handleSubmit}>
-          Add book
-        </Button>
-      </AddBookDialogItem>
+      <Button color='blue' onClick={handleSubmit}>
+        Add book
+      </Button>
     </AddBookDialogWrapper>
   );
 };

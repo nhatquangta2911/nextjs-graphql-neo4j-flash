@@ -1,4 +1,4 @@
-import { IActionPageTracking } from "./tracking.action";
+import { IActionPageTracking } from './tracking.action';
 
 export interface IPageTrackingState {
   dialog: {
@@ -9,17 +9,19 @@ export interface IPageTrackingState {
   total: number;
   completed: number;
   addBookDialogVisible: boolean;
+  shouldRefetch: boolean;
 }
 
 const initialState: IPageTrackingState = {
   dialog: {
     dialogVisible: false,
-    dialogContent: "",
+    dialogContent: '',
   },
-  newestTask: "Not updated",
+  newestTask: 'Not updated',
   total: 0,
   completed: 0,
   addBookDialogVisible: false,
+  shouldRefetch: false,
 };
 
 export const pageTrackingReducer = (
@@ -27,7 +29,7 @@ export const pageTrackingReducer = (
   action: IActionPageTracking
 ): IPageTrackingState => {
   switch (action.type) {
-    case "DISPLAY_DIALOG":
+    case 'DISPLAY_DIALOG':
       return {
         ...state,
         dialog: {
@@ -35,34 +37,39 @@ export const pageTrackingReducer = (
           dialogContent: action.title,
         },
       };
-    case "HIDE_DIALOG":
+    case 'HIDE_DIALOG':
       return {
         ...state,
         dialog: {
           dialogVisible: false,
-          dialogContent: "",
+          dialogContent: '',
         },
       };
-    case "UPDATE_NEWEST_TASK":
+    case 'UPDATE_NEWEST_TASK':
       return {
         ...state,
         newestTask: action.newestTask,
       };
-    case "UPDATE_STATS":
+    case 'UPDATE_STATS':
       return {
         ...state,
         total: action.total,
         completed: action.completed,
       };
-    case "TRIGGER_ADD_BOOK_DIALOG":
+    case 'TRIGGER_ADD_BOOK_DIALOG':
       return {
         ...state,
         addBookDialogVisible: true,
       };
-    case "HIDE_ADD_BOOK_DIALOG":
+    case 'HIDE_ADD_BOOK_DIALOG':
       return {
         ...state,
         addBookDialogVisible: false,
+      };
+    case 'TRIGGER_REFETCH':
+      return {
+        ...state,
+        shouldRefetch: true,
       };
     default:
       return state;
