@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { Button } from "primereact/button";
 import { Dialog } from "primereact/dialog";
 import {
@@ -12,20 +13,24 @@ import {
 import { DialogFooterWrapper } from "components/DialogFooter/DialogFooter.style";
 import { AddBookDialog } from "components";
 import { BookCarousel } from "containers";
+import { IPageTrackingState } from "pages/tracking/tracking.reducer";
 
 type BookshelfProps = {};
 
 const Bookshelf: React.FC<BookshelfProps> = () => {
   const [display, setDisplay] = useState(false);
-
+  const dispatch = useDispatch();
+  const addBookDialogVisible = useSelector(
+    (state: IPageTrackingState) => state?.addBookDialogVisible
+  );
   const DialogFooter = (
     <DialogFooterWrapper>
-      <Button label="Add" icon="pi pi-check" />
+      {/* <Button label="Add" icon="pi pi-check" /> */}
       <Button
         label="Cancel"
         icon="pi pi-times"
         className="p-button-secondary"
-        onClick={() => setDisplay(false)}
+        onClick={() => dispatch({ type: "HIDE_ADD_BOOK_DIALOG" })}
       />
     </DialogFooterWrapper>
   );
@@ -43,7 +48,7 @@ const Bookshelf: React.FC<BookshelfProps> = () => {
           <Button
             label="Add Book"
             icon="pi pi-plus"
-            onClick={() => setDisplay(true)}
+            onClick={() => dispatch({ type: "TRIGGER_ADD_BOOK_DIALOG" })}
           ></Button>
         </AddBookSection>
       </BookshelfHeader>
@@ -52,11 +57,11 @@ const Bookshelf: React.FC<BookshelfProps> = () => {
       </BookshelfContent>
       <Dialog
         header="Add book"
-        visible={display}
+        visible={addBookDialogVisible}
         modal={true}
         footer={DialogFooter}
-        style={{ width: "40vw" }}
-        onHide={() => setDisplay(false)}
+        style={{ width: "50vw" }}
+        onHide={() => dispatch({ type: "HIDE_ADD_BOOK_DIALOG" })}
       >
         <AddBookDialog />
       </Dialog>

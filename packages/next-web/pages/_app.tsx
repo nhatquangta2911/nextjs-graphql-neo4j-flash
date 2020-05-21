@@ -11,6 +11,8 @@ import "@progress/kendo-theme-default/dist/all.css";
 import "primereact/resources/themes/nova-light/theme.css";
 import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";
+import "semantic-ui-css/semantic.min.css";
+
 import { RootReducer } from "reducers/rootReducer";
 import { businessComponentReducer } from "reducers/businessComponentReducer";
 import { pageTrackingReducer } from "./tracking/tracking.reducer";

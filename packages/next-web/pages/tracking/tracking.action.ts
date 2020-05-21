@@ -18,8 +18,18 @@ export interface IActionUpdateStats {
   completed: number;
 }
 
+export interface IActionTriggerAddBookDialog {
+  type: "TRIGGER_ADD_BOOK_DIALOG";
+}
+
+export interface IActionHideAddBookDialog {
+  type: "HIDE_ADD_BOOK_DIALOG";
+}
+
 export type IActionPageTracking =
   | IActionDisplayDialog
   | IActionHideDialog
   | IActionUpdateNewestTask
-  | IActionUpdateStats;
+  | IActionUpdateStats
+  | IActionHideAddBookDialog
+  | IActionTriggerAddBookDialog;

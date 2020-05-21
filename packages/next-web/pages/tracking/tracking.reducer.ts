@@ -8,6 +8,7 @@ export interface IPageTrackingState {
   newestTask: string;
   total: number;
   completed: number;
+  addBookDialogVisible: boolean;
 }
 
 const initialState: IPageTrackingState = {
@@ -18,6 +19,7 @@ const initialState: IPageTrackingState = {
   newestTask: "Not updated",
   total: 0,
   completed: 0,
+  addBookDialogVisible: false,
 };
 
 export const pageTrackingReducer = (
@@ -51,6 +53,16 @@ export const pageTrackingReducer = (
         ...state,
         total: action.total,
         completed: action.completed,
+      };
+    case "TRIGGER_ADD_BOOK_DIALOG":
+      return {
+        ...state,
+        addBookDialogVisible: true,
+      };
+    case "HIDE_ADD_BOOK_DIALOG":
+      return {
+        ...state,
+        addBookDialogVisible: false,
       };
     default:
       return state;
