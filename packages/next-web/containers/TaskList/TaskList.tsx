@@ -5,6 +5,7 @@ import { TabView, TabPanel } from "primereact/tabview";
 import { ScrollPanel } from "primereact/scrollpanel";
 import { InputText } from "primereact/inputtext";
 import { Checkbox } from "primereact/checkbox";
+import cogoToast from "cogo-toast";
 import { Container, Draggable } from "react-smooth-dnd";
 import { GET_TASKS_BY_WEEKNO } from "../../graphql/query/task.query";
 import { Task } from "../../types";
@@ -24,6 +25,7 @@ import { Bounce } from "react-awesome-reveal";
 import { UPDATE_TASK_STATUS } from "../../graphql/mutation/task.mutation";
 import { applyDrag } from "helper/dnd";
 import Stats from "containers/Stats";
+import { Spinner } from "components";
 
 type TaskListProps = {
   weekNo: string;
@@ -141,9 +143,6 @@ const TaskList: React.FC<TaskListProps> = ({ weekNo, total, completed }) => {
     taskList?.completed / parseFloat(taskList?.total) || 0.001
   ).toFixed(2);
 
-  if (loading) return <p>loading...</p>;
-  if (error) return <p>{error.message}</p>;
-
   return (
     <TabView renderActiveOnly={true}>
       <TabPanel header="Task List" leftIcon="pi pi-tags">
@@ -180,6 +179,7 @@ const TaskList: React.FC<TaskListProps> = ({ weekNo, total, completed }) => {
               console.log(newDndItems);
             }}
           >
+            {loading && <Spinner small message="Connecting to server" />}
             <Bounce cascade>
               {dndItems?.map((task) => (
                 <Draggable key={task?.id}>
