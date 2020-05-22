@@ -30,24 +30,30 @@ const UpdateBookDialog: React.FC<UpdateBookDialogProps> = () => {
     [dispatch]
   );
 
-  const handleUpdate = async () => {
+  const handleUpdate = async (done: boolean) => {
     try {
       await updateBook({
         variables: {
           bookId: updatedBook.bookId,
           title: updatedBook.title,
           completedPages:
-            updatedBook.completedPages > book.pages
+            updatedBook.completedPages > book.pages || done
               ? book.pages
               : updatedBook.completedPages,
+          status:
+            updatedBook.completedPages >= book.pages || done
+              ? "Done"
+              : "Reading",
         },
       });
+      cogoToast.success(
+        `Update your progress of "${updatedBook.title}" (${
+          done ? book.pages : updatedBook.completedPages
+        }/${book.pages}) `
+      );
       setUpdatedBook({} as Book);
       await hideUpdateBookDialog();
       await triggerRefetch();
-      cogoToast.success(
-        `Update your progress of "${updatedBook.title}" (${updatedBook.completedPages}/${book.pages}) `
-      );
     } catch (error) {
       cogoToast.error(JSON.stringify(error, null, 2));
     }
@@ -110,21 +116,32 @@ const UpdateBookDialog: React.FC<UpdateBookDialogProps> = () => {
               {updatedBook.completedPages >= book.pages && (
                 <Bounce duration={1500}>
                   <Label color="green" tag>
-                    Done Reading
+                    Done Reading?
                   </Label>
                 </Bounce>
               )}
               <Button
-                color="linkedin"
+                color="blue"
+                compact
                 disabled={
                   updatedBook.completedPages < 0 ||
                   updatedBook.title?.trim() === "" ||
                   !updatedBook.completedPages
                 }
-                onClick={handleUpdate}
+                onClick={() => handleUpdate(false)}
               >
                 Update
               </Button>
+              {updatedBook.completedPages <= book.pages + 1 && (
+                <Button
+                  color="green"
+                  basic
+                  compact
+                  onClick={() => handleUpdate(true)}
+                >
+                  I'm done
+                </Button>
+              )}
             </div>
           </Form.Field>
         </Form>

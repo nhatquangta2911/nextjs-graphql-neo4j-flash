@@ -71,7 +71,6 @@ const AddBookDialog: React.FC<AddBookDialogProps> = () => {
       triggerRefetch();
       cogoToast.success("Book added");
     } catch (error) {
-      alert(JSON.stringify(error, null, 2));
       cogoToast.error(error.message);
     }
   };

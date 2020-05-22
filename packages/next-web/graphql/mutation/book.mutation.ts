@@ -47,11 +47,13 @@ export const UPDATE_BOOK = gql`
     $title: String!
     $completedPages: Int!
     $bookId: String!
+    $status: String!
   ) {
     UpdateBook(
       title: $title
       completedPages: $completedPages
       bookId: $bookId
+      status: $status
     ) {
       bookId
       title

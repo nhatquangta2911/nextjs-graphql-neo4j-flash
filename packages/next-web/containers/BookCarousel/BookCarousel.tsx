@@ -9,12 +9,13 @@ import { GET_BOOKS } from "graphql/query/book.query";
 import { Book, Spinner } from "components";
 import { Book as BookType } from "types";
 import { IPageTrackingState } from "pages/tracking/tracking.reducer";
+import { Bounce } from "react-awesome-reveal";
 
 type BooksProps = {};
 
 const BookCarousel: React.FC<BooksProps> = () => {
   const { data, loading, error, refetch } = useQuery(GET_BOOKS, {
-    variables: { name: "Shawn", first: 4 },
+    variables: { name: "Shawn", first: 20 },
   });
 
   const shouldRefetch = useSelector(
@@ -34,11 +35,13 @@ const BookCarousel: React.FC<BooksProps> = () => {
       )}
       {books?.length > 0 && (
         <Carousel
-          style={{ width: "100%", height: "100%" }}
+          style={{ width: "60%", height: "100%", border: "0px solid" }}
           value={books}
           itemTemplate={bookTemplate}
-          numVisible={4}
-          numScroll={2}
+          numVisible={3}
+          numScroll={1}
+          page={0}
+          circular={true}
         ></Carousel>
       )}
     </BooksWrapper>
