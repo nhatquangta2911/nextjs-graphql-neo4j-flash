@@ -12,6 +12,6 @@ export const UpdateBookDialogLeftCoverImage = styled(Row)`
 
 export const UpdateBookDialogEditor = styled(Column)`
   flex-basis: 70%;
-  padding: 0 1vw;
+  padding: 0 1vw 0 2vw;
   justify-content: space-around;
 `;

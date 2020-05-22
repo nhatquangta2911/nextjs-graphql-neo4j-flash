@@ -29,6 +29,7 @@ export interface FormattedDate {
 }
 
 export interface Book {
+  bookId: string;
   _id: string;
   title: string;
   pages: number;

@@ -2,12 +2,14 @@ import gql from "graphql-tag";
 
 export const ADD_BOOK = gql`
   mutation addBook(
+    $bookId: String!
     $title: String!
     $pages: Int
     $startDate: _Neo4jDateInput
     $coverImage: String
   ) {
     CreateBook(
+      bookId: $bookId
       title: $title
       pages: $pages
       status: "Reading"
@@ -15,13 +17,10 @@ export const ADD_BOOK = gql`
       coverImage: $coverImage
       startDate: $startDate
     ) {
-      _id
+      bookId
       title
       pages
       startDate {
-        formatted
-      }
-      finishDate {
         formatted
       }
       status
@@ -37,8 +36,25 @@ export const ADD_BOOK_INTO_USER_SHELF = gql`
         name
       }
       to {
-        title
+        bookId
       }
+    }
+  }
+`;
+
+export const UPDATE_BOOK = gql`
+  mutation updateBook(
+    $title: String!
+    $completedPages: Int!
+    $bookId: String!
+  ) {
+    UpdateBook(
+      title: $title
+      completedPages: $completedPages
+      bookId: $bookId
+    ) {
+      bookId
+      title
     }
   }
 `;

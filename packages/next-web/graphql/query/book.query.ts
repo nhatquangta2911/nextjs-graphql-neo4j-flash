@@ -5,6 +5,7 @@ export const GET_BOOKS = gql`
     User(name: $name) {
       books(first: $first) {
         _id
+        bookId
         title
         pages
         status

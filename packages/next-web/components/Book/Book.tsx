@@ -9,6 +9,7 @@ import {
 } from "./Book.style";
 import { Book as BookType } from "types";
 import { Button } from "primereact/button";
+import { Bounce } from "react-awesome-reveal";
 
 type BookProps = {
   book: BookType;

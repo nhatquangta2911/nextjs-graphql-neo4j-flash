@@ -12,6 +12,7 @@ type TaskList {
 }
 
 type Book {
+  bookId: String
   title: String!
   pages: Int
   startDate: Date
