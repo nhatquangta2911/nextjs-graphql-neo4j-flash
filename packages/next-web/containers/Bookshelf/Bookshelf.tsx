@@ -32,7 +32,10 @@ const Bookshelf: React.FC<BookshelfProps> = () => {
         label="Cancel"
         icon="pi pi-times"
         className="p-button-secondary"
-        onClick={() => dispatch({ type: "HIDE_ADD_BOOK_DIALOG" })}
+        onClick={() => {
+          dispatch({ type: "HIDE_ADD_BOOK_DIALOG" });
+          dispatch({ type: "HIDE_UPDATE_BOOK_DIALOG" });
+        }}
       />
     </DialogFooterWrapper>
   );
