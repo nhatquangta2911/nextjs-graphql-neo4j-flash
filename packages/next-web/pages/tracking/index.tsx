@@ -12,12 +12,12 @@ import {
   LeftContentSection,
   RightContentSection,
   UpperLeftContentSection,
-  LowerLeftContentSection,
+  LowerLeftContentSection
 } from 'styled/pages.style';
 import {
   Tracking as TrackingContainer,
   TaskList as TaskListContainer,
-  Bookshelf,
+  Bookshelf
 } from '../../containers';
 import { Dialog } from 'primereact/dialog';
 import { User } from '../../types';
@@ -36,13 +36,13 @@ const TrackingPage: React.FC<IPageOwnProps> = () => {
   const dialog = useSelector((state: IPageTrackingState) => state?.dialog);
   const dispatch = useDispatch();
   const hideDialog = useCallback(() => dispatch({ type: 'HIDE_DIALOG' }), [
-    dispatch,
+    dispatch
   ]);
   useEffect(() => {
     setUsername(localStorage.getItem('username') || 'Shawn');
   });
   const { data } = useQuery(GET_USER_INFO, {
-    variables: { name: username },
+    variables: { name: username }
   });
   const user = data?.User[0];
   const weekNo = getWeekNo() || user?.taskList[0]?.weekNo;

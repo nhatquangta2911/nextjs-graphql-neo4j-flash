@@ -1,4 +1,4 @@
-import gql from "graphql-tag";
+import gql from 'graphql-tag';
 
 export const ADD_BOOK = gql`
   mutation addBook(
@@ -56,6 +56,14 @@ export const UPDATE_BOOK = gql`
       status: $status
     ) {
       bookId
+      title
+    }
+  }
+`;
+
+export const DELETE_BOOK = gql`
+  mutation deleteBook($bookId: String!) {
+    DeleteBook(bookId: $bookId) {
       title
     }
   }
