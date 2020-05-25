@@ -40,3 +40,7 @@ jspm_packages
 .env
 
 build
+
+.vscode/*
+
+report\[\].json
